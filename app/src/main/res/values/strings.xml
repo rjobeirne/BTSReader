@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DirReader</string>
+    <string name="app_name">BTSReader</string>
     <string name="rest_book">Rest book to be show unstarted</string>
     <string name="book_title">Book Title</string>
     <string name="delete_book">Delete book</string>
