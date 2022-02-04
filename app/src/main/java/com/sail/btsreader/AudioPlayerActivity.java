@@ -1,4 +1,4 @@
-package com.sail.dirreader;
+package com.sail.btsreader;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.DirReader" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.BTSReader" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="android:background">@color/black</item>
         <item name="colorOnBackground">@color/white</item>

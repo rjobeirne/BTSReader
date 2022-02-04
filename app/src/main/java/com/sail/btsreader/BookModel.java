@@ -1,4 +1,4 @@
-package com.sail.dirreader;
+package com.sail.btsreader;
 
 public class BookModel {
 

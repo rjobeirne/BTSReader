@@ -1,4 +1,4 @@
-package com.sail.dirreader;
+package com.sail.btsreader;
 
 import java.io.Serializable;
 

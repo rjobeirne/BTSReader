@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sail.dirreader">
+    package="com.sail.btsreader">
 
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,10 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DirReader">
+        android:theme="@style/Theme.BTSReader">
 
         <activity
-            android:name=".MainActivity">
+            android:name="com.sail.btsreader.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,12 +22,12 @@
         </activity>
 
         <activity
-            android:name=".ListBookActivity"
+            android:name="com.sail.btsreader.ListBookActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
-            android:name=".ListChapterActivity"
+            android:name="com.sail.btsreader.ListChapterActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +35,7 @@
         </activity>
 
         <activity
-            android:name=".AudioPlayerActivity"
+            android:name="com.sail.btsreader.AudioPlayerActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
