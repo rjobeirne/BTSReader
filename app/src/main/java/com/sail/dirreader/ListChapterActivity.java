@@ -160,5 +160,15 @@ public class ListChapterActivity extends AppCompatActivity {
 //        mCoverView.setBackground(coverBMP);
     }
 
+    /*
+    Reset chapter progress when exiting player
+     */
+    public void onRestart()
+    {
+    super.onRestart();
+        finish();
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
 
 }
