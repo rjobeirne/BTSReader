@@ -2,6 +2,7 @@ package com.sail.btsreader;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class ListBookActivity extends AppCompatActivity {
     ArrayList<BookModel> allBookDirectories;
     BookProgress updateProgress;
     File[] books;
+    final ArrayList<BookModel> tempBookList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,7 @@ public class ListBookActivity extends AppCompatActivity {
 
     public ArrayList<BookModel> getBookList(final Context context) {
 
-        final ArrayList<BookModel> tempBookList = new ArrayList<>();
+
 
         String path = Environment.getExternalStorageDirectory().toString() + "/AudioBooks";
 
@@ -178,19 +180,20 @@ public class ListBookActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case 121:
+            selectBook(bookNo);
             customToast("Listen to book");
             return true;
 
             case 122:
-            resetBook(bookNo, "Resetting ");
+            resetBook(bookNo);
             return true;
 
             case 123:
-            deleteBook(bookNo,"Delete book");
+            deleteBook(bookNo);
             return true;
 
             case 124:
-//            displayMessage("Return");
+            // no action, close menu
             return true;
 
             default:
@@ -205,19 +208,31 @@ public class ListBookActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();;
     }
 
-    private void resetBook(int itemPosition, String message) {
+    private void selectBook(int itemPosition) {
+
+            String bookName = tempBookList.get(itemPosition).getaTitle();
+            String bookCover = tempBookList.get(itemPosition).getaCover();
+            String bookAuthor = tempBookList.get(itemPosition).getaAuthor();
+            String bookDirectory = tempBookList.get(itemPosition).getaPath();
+
+            Intent intent = new Intent(context, ListChapterActivity.class);
+            intent.putExtra("bookName", bookName);
+            intent.putExtra("coverPath", bookCover);
+            intent.putExtra("bookPath", bookDirectory);
+
+            context.startActivity(intent);
+    }
+
+    private void resetBook(int itemPosition) {
 
         String title = allBookDirectories.get(itemPosition).getaTitle();
-        customToast(message);
-//        Toast.makeText(this, message + title, Toast.LENGTH_SHORT).show();
-
+        customToast("Resetting ");
         updateProgress.addBookProgress(getFilesDir(), title, -1);
     }
 
-   private void deleteBook(int itemPosition, String message) {
+   private void deleteBook(int itemPosition) {
 
-//        Toast.makeText(this, message , Toast.LENGTH_SHORT).show();
-        customToast(message);
+        customToast("Delete book");
         String title = allBookDirectories.get(itemPosition).getaTitle();
 
         // Delete progress file
