@@ -141,6 +141,7 @@ public class ListChapterActivity extends AppCompatActivity {
                 chapterModel.setaPath(chapterPath);
                 chapterModel.setaCover(coverPath);
                 chapterModel.setRead(alreadyRead);
+                chapterModel.setPreviousPLace(previousPlace);
                 tempChapterList.add(chapterModel);
 
                 // close object

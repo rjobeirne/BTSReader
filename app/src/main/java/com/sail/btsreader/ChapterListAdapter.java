@@ -21,7 +21,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
     public String mChapterName, mChapterDuration;
 
     public  int minTime = 15 * 60 * 1000;
-    Integer trackNumber, startTrack;
+    Integer trackNumber, startTrack, previousPlace;
     Long duration;
     Boolean alreadyRead;
     public String path, bookTitle, bookCover;
@@ -61,6 +61,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         bookTitle = chapterDataSet.get(i).getaTitle();
         bookCover = chapterDataSet.get(i).getaCover();
         alreadyRead = chapterDataSet.get(i).getRead();
+        previousPlace = chapterDataSet.get(i).getPreviousPlace();
 
 
         mChapterName = mChapterName.substring(0, mChapterName.indexOf(".")); // remove file extension
@@ -121,6 +122,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             intent.putExtra("durations", durations);
             intent.putExtra("playStatus", playStatus);
             intent.putExtra("cover", bookCover);
+            intent.putExtra("previousPlace", previousPlace);
             nContext.startActivity(intent);
         }
     }

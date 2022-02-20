@@ -10,6 +10,7 @@ public class ChapterModel {
     String aTitle;
     String aCover;
     Boolean aRead;
+    Integer aPreviousPlace;
 
     public String getaPath() { return aPath; }
 
@@ -50,6 +51,10 @@ public class ChapterModel {
     public Boolean getRead() { return aRead;}
 
     public void setRead(Boolean aRead) { this.aRead = aRead; }
+
+    public Integer getPreviousPlace() { return aPreviousPlace;}
+
+    public void setPreviousPLace(Integer aPreviousPlace) { this.aPreviousPlace = aPreviousPlace; }
 
 //    public String getaAuthor() {
 //        return aAuthor;
