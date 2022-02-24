@@ -44,6 +44,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     View mCoverView;
     long chapterTime, currentPosition, newPosition;
     TextView mBookTitleTextView;
+    int previousPlace;
 
     BookProgress updateProgress;
 
@@ -66,6 +67,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         durations =(ArrayList<Long>) intent.getSerializableExtra("durations");
         playStatus = intent.getStringExtra("playStatus");
         coverPath = intent.getStringExtra("cover");
+        previousPlace = intent.getIntExtra("previousPlace", 0);
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(this);
@@ -129,7 +131,9 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
         File files = getFilesDir();
         createPlayList(itemPosition);
-        updateProgress.addBookProgress(files, bookTitle, itemPosition);
+        if (itemPosition > previousPlace) {
+            updateProgress.addBookProgress(files, bookTitle, itemPosition);
+        }
         makeCover(coverPath);
 
         if (playStatus .equals("Play")) {
