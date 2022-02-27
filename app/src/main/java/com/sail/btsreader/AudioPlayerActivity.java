@@ -57,7 +57,6 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         setContentView(R.layout.activity_audio_player);
 
         Intent intent = getIntent();
-        timer = new Timer();
         chapterList = new ArrayList<String>();
 
         bookTitle = intent.getStringExtra("bookTitle");
