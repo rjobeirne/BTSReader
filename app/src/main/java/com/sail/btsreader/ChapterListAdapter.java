@@ -66,9 +66,9 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
 
         mChapterName = mChapterName.substring(0, mChapterName.indexOf(".")); // remove file extension
 
-        if(!mChapterName.contains("-")){
-            mChapterName = "Chapter " + (i + 1);
-        }
+//        if(!mChapterName.contains("-")){
+//            mChapterName = "Chapter " + (i + 1);
+//        }
         chapterViewHolder.mChapterNoTextView.setText(mChapterName);
         chapterViewHolder.mChapterDurationTextView.setText(mChapterDuration);
         if (alreadyRead) {

@@ -86,11 +86,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="15dp"
         android:layout_marginBottom="33dp"
         android:text="TextView"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/playBtn"
-        app:layout_constraintStart_toStartOf="@+id/playBtn" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 <!--     Rewind & Fast forward-->
     <Button
