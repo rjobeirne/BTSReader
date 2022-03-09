@@ -42,7 +42,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     ArrayList<String> playListPaths;
     private TextView mChapterDuration, mCurrentPosition, mAudioName;
     View mCoverView;
-    long chapterTime, currentPosition, newPosition;
+    long chapterTime, currentPosition, newPosition, remainingTime;
     TextView mBookTitleTextView;
     int previousPlace;
 
@@ -79,7 +79,6 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         Button backFiveSecs = findViewById(R.id.rewind_5secs);
         Button forwardFivePc = findViewById(R.id.forward_5pc);
         Button forwardFiveSecs = findViewById(R.id.forward_5secs);
-        mChapterDuration = findViewById(R.id.chapter_duration);
         mAudioName = findViewById(R.id.audioName);
         mBookTitleTextView = findViewById(R.id.book_title);
 
@@ -213,11 +212,11 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
         // Update chapter duration
             chapterTime = durations.get(itemPosition);
-            String dspChaptTime = String.format("%2d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes(chapterTime),
-                        TimeUnit.MILLISECONDS.toSeconds(chapterTime) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(chapterTime)));
-            mChapterDuration.setText(dspChaptTime);
+//            String dspChaptTime = String.format("%2d:%02d",
+//                        TimeUnit.MILLISECONDS.toMinutes(chapterTime),
+//                        TimeUnit.MILLISECONDS.toSeconds(chapterTime) -
+//                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(chapterTime)));
+//            mChapterDuration.setText(dspChaptTime);
 
         // Next and previous buttons
             Button skipToPrevious = findViewById(R.id.skip_to_previous);
@@ -330,6 +329,15 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
                     TimeUnit.MILLISECONDS.toSeconds(currentPosition) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(currentPosition)));
             mCurrentPosition.setText(dspCurrentPos);
+
+            remainingTime = chapterTime - currentPosition;
+            mChapterDuration = findViewById(R.id.chapter_duration);
+            String dspChaptTime = String.format("%2d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(remainingTime),
+                TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)));
+            mChapterDuration.setText(dspChaptTime);
+
 
                // Running this thread after 100 milliseconds
                mHandler.postDelayed(this, 100);
