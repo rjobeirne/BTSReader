@@ -212,7 +212,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
             mAudioName.setText(currentChapter);
 
         // Update chapter duration
-            chapterTime = durations.get(index);
+            chapterTime = durations.get(itemPosition);
             String dspChaptTime = String.format("%2d:%02d",
                         TimeUnit.MILLISECONDS.toMinutes(chapterTime),
                         TimeUnit.MILLISECONDS.toSeconds(chapterTime) -
