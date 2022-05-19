@@ -74,6 +74,11 @@ public class ListChapterActivity extends AppCompatActivity {
         chapterListAdapter = new ChapterListAdapter(context, allChapters);
         listChapterView.setLayoutManager(new LinearLayoutManager(context));
         listChapterView.setAdapter(chapterListAdapter);
+        
+        // Centre list around current chapter
+        if (previousPlace > 4) {
+        listChapterView.scrollToPosition(previousPlace - 4);
+        }
     }
 
     public ArrayList<ChapterModel> getChapterList(final Context context, String mBookTitle) {
