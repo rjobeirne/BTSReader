@@ -32,7 +32,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     SeekBar seekBar;
     String mTrack, bookTitle, playStatus, coverPath;
     int index, maxIndex;
-    int itemPosition;
+    int itemPosition, chapterNumber;
     int currentIndex = 0;
     ArrayList<String> playList;
     Timer timer;
@@ -60,13 +60,21 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         chapterList = new ArrayList<String>();
 
         bookTitle = intent.getStringExtra("bookTitle");
-        itemPosition = intent.getIntExtra("position", 0);
+        chapterNumber = intent.getIntExtra("position", 0);
         chapterList = intent.getStringArrayListExtra("paths");
         chapterName = intent.getStringArrayListExtra("chapterName");
         durations =(ArrayList<Long>) intent.getSerializableExtra("durations");
         playStatus = intent.getStringExtra("playStatus");
         coverPath = intent.getStringExtra("cover");
         previousPlace = intent.getIntExtra("previousPlace", 0);
+
+        // Recalc position if ScrollToPosition is invoked in ListChapterAcitivity because it
+        // changes the list size for some strange reason.
+        if (chapterNumber < 12) {
+            itemPosition = chapterNumber;
+        } else {
+            itemPosition = chapterNumber - previousPlace + 4;
+        }
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(this);
@@ -129,8 +137,8 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
         File files = getFilesDir();
         createPlayList(itemPosition);
-        if (itemPosition > previousPlace) {
-            updateProgress.addBookProgress(files, bookTitle, itemPosition);
+        if (chapterNumber > previousPlace) {
+            updateProgress.addBookProgress(files, bookTitle, chapterNumber);
         }
         makeCover(coverPath);
 

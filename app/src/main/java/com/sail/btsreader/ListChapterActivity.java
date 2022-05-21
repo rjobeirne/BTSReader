@@ -93,7 +93,6 @@ public class ListChapterActivity extends AppCompatActivity {
 
         mBookTitleTextView.setText(bookTitle);
         previousPlace = readProgress.getBookProgress(context, progressFiles, bookTitle);
-        Log.e("Previous Place :", String.valueOf(previousPlace));
 
         for (int i = 0; i < files.length; i++) {
 
