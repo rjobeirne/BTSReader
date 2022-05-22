@@ -36,6 +36,7 @@ public class ListChapterActivity extends AppCompatActivity {
     View mCoverView;
     int previousPlace;
     int chptNo =-1;
+    int listOffset;
 
     BookProgress readProgress;
 
@@ -77,8 +78,11 @@ public class ListChapterActivity extends AppCompatActivity {
         
         // Centre list around current chapter
         if (previousPlace > 4) {
-        listChapterView.scrollToPosition(previousPlace - 4);
+            listOffset = 4;
+        } else {
+            listOffset = 0;
         }
+        listChapterView.scrollToPosition(previousPlace - 4);
     }
 
     public ArrayList<ChapterModel> getChapterList(final Context context, String mBookTitle) {
