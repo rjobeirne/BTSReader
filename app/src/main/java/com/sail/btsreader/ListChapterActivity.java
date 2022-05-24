@@ -47,7 +47,7 @@ public class ListChapterActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         bookTitle = intent.getStringExtra("bookName");
-        coverPath = intent.getStringExtra("coverPath");
+//        coverPath = intent.getStringExtra("coverPath");
         bookSubDirectory = intent.getStringExtra("bookPath");
         mBookTitleTextView = findViewById(R.id.book_title);
         mCoverView = findViewById(R.id.cover_background);
@@ -143,7 +143,7 @@ public class ListChapterActivity extends AppCompatActivity {
                 chapterModel.setaChapter(nameChapter);
                 chapterModel.setaDuration(out);
                 chapterModel.setaRawDuration(dur);
-                chapterModel.setaPath(chapterPath);
+                chapterModel.setaPath(bookDirectory);
                 chapterModel.setaCover(coverPath);
                 chapterModel.setRead(alreadyRead);
                 chapterModel.setPreviousPLace(previousPlace);

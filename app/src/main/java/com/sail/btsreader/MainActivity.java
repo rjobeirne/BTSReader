@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ListBookActivity theList;
 
     BookProgress findCurrentBook;
+    Context nContext;
 
     // UI widgets
     private ImageButton listBooksBtn;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Button listBooksBtn = findViewById(R.id.list_books);
         Button continueListeningBtn = findViewById(R.id.continue_listen);
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         continueListeningBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 try {
                     continueReading();
                 } catch (Exception e) {
@@ -91,6 +94,18 @@ public class MainActivity extends AppCompatActivity {
         String place = currentBookFileContents.substring(currentBookFileContents.indexOf("/")+1);
         int intPlace = Integer.parseInt(place.replaceAll("[\\D]",""));
         Log.e("Book, Place", currentBook + " " + intPlace);
+
+        currentBook = "Cakes and Ale";
+        String bookDirectory = "CakesAle";
+
+        nContext = MainActivity.this;
+        Intent intent = new Intent(nContext, ListChapterActivity.class);
+        intent.putExtra("bookName", currentBook);
+//            intent.putExtra("coverPath", bookCover);
+        intent.putExtra("bookPath", bookDirectory);
+
+        nContext.startActivity(intent);
+
 
 
 //        return currentBookFileContents;
