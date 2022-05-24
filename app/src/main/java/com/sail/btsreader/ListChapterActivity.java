@@ -143,7 +143,7 @@ public class ListChapterActivity extends AppCompatActivity {
                 chapterModel.setaChapter(nameChapter);
                 chapterModel.setaDuration(out);
                 chapterModel.setaRawDuration(dur);
-                chapterModel.setaPath(bookDirectory);
+                chapterModel.setaPath(chapterPath);
                 chapterModel.setaCover(coverPath);
                 chapterModel.setRead(alreadyRead);
                 chapterModel.setPreviousPLace(previousPlace);
