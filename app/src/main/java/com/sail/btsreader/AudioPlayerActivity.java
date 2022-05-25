@@ -69,6 +69,12 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         coverPath = intent.getStringExtra("cover");
         previousPlace = intent.getIntExtra("previousPlace", 0);
 
+        // Recalc position if ScrollToPosition is invoked in ListChapterAcitivity because it
+        // changes the list size for some strange reason.
+        if (previousPlace > 4) {
+            itemPosition = itemPosition - previousPlace + 4;
+        }
+
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(this);
 
