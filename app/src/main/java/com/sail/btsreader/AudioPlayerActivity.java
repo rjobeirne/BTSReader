@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -135,7 +134,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.e("getFilesDir  ", String.valueOf(files));
+
         updateProgress.addCurrentBook(files, bookTitle, bookPath);
         if (itemPosition > previousPlace) {
             updateProgress.addBookProgress(files, bookTitle, itemPosition);
@@ -221,11 +220,6 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
         // Update chapter duration
             chapterTime = durations.get(itemPosition);
-//            String dspChaptTime = String.format("%2d:%02d",
-//                        TimeUnit.MILLISECONDS.toMinutes(chapterTime),
-//                        TimeUnit.MILLISECONDS.toSeconds(chapterTime) -
-//                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(chapterTime)));
-//            mChapterDuration.setText(dspChaptTime);
 
         // Next and previous buttons
             Button skipToPrevious = findViewById(R.id.skip_to_previous);

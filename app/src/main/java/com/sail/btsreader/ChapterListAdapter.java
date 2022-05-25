@@ -2,7 +2,6 @@ package com.sail.btsreader;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
     public ArrayList<String> nameChapters = new ArrayList<String>();
     public ArrayList<Long> durations = new ArrayList<Long>();
     public String playStatus;
-    View screenView;
 
 
     public ChapterListAdapter(Context context, ArrayList<ChapterModel> chapterModelList) {
@@ -65,14 +63,8 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         alreadyRead = chapterDataSet.get(i).getRead();
         previousPlace = chapterDataSet.get(i).getPreviousPlace();
 
-        Log.e("Path ", path);
-
-
         mChapterName = mChapterName.substring(0, mChapterName.indexOf(".")); // remove file extension
 
-//        if(!mChapterName.contains("-")){
-//            mChapterName = "Chapter " + (i + 1);
-//        }
         chapterViewHolder.mChapterNoTextView.setText(mChapterName);
         chapterViewHolder.mChapterDurationTextView.setText(mChapterDuration);
         if (alreadyRead) {

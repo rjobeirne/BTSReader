@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -48,7 +47,6 @@ public class ListChapterActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         bookTitle = intent.getStringExtra("bookName");
-//        coverPath = intent.getStringExtra("coverPath");
         bookSubDirectory = intent.getStringExtra("bookPath");
         mBookTitleTextView = findViewById(R.id.book_title);
         mCoverView = findViewById(R.id.cover_background);
@@ -99,7 +97,6 @@ public class ListChapterActivity extends AppCompatActivity {
 
         mBookTitleTextView.setText(bookTitle);
         previousPlace = readProgress.getBookProgress(context, progressFiles, bookTitle);
-        Log.e("Previous Place :", String.valueOf(previousPlace));
 
         for (int i = 0; i < files.length; i++) {
 
@@ -169,7 +166,6 @@ public class ListChapterActivity extends AppCompatActivity {
 
         Bitmap bitmap = BitmapFactory.decodeFile(coverPath);
         BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
-//        mCoverView.setBackground(coverBMP);
     }
 
     /*

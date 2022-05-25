@@ -2,40 +2,23 @@ package com.sail.btsreader;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
-import java.io.BufferedReader;
-import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView audioListView;
-    BookListAdapter bookListAdapter;
-    Context context;
-
-    ListBookActivity theList;
-
-    BookProgress findCurrentBook;
     Context nContext;
-
-    // UI widgets
-    private ImageButton listBooksBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,16 +64,6 @@ public class MainActivity extends AppCompatActivity {
     public void continueReading() throws Exception {
 
         nContext = MainActivity.this;
-//        File files = getFilesDir();
-//        String currentBook;
-//        currentBook = findCurrentBook.getCurrentBook(context, files);
-//        Log.e("current Book", currentBook);
-//                startActivity(new Intent(getApplicationContext(), ListBookActivity.class));
-        String currentBookPlace = getFilesDir().getCanonicalPath() + "/01currentBook";
-        File fi = new File(currentBookPlace);
-//        FileInputStream fin = new FileInputStream(fi);
-//        String currentBookFileContents = convertStreamToString(fin);
-//        fin.close();
 
         FileInputStream fin = null;
         try {
@@ -103,37 +76,15 @@ public class MainActivity extends AppCompatActivity {
         String currentBookFileContents = scanner.next();
         scanner.close();
 
-        Log.e("currentBookPlace", currentBookFileContents);
         String currentBook = currentBookFileContents.substring(0,currentBookFileContents.indexOf("#"));
         String bookDirectory = currentBookFileContents.substring(currentBookFileContents.indexOf("#")+1);
-//        int intPlace = Integer.parseInt(place.replaceAll("[\\D]",""));
-        Log.e("Book, Place", currentBook + " # " + bookDirectory);
 
         Intent intent = new Intent(nContext, ListChapterActivity.class);
         intent.putExtra("bookName", currentBook);
-//            intent.putExtra("coverPath", bookCover);
         intent.putExtra("bookPath", bookDirectory);
 
         nContext.startActivity(intent);
-
-
-
-//        return currentBookFileContents;
-
     }
-
-        public static String convertStreamToString(InputStream is) throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-          sb.append(line).append("\n");
-        }
-        reader.close();
-        return sb.toString();
-    }
-
-
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {

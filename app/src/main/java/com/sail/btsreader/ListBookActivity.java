@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -83,10 +82,8 @@ public class ListBookActivity extends AppCompatActivity {
 
         String path = Environment.getExternalStorageDirectory().toString() + "/AudioBooks";
 
-        Log.d("Files", "Path: " + path);
         File directory = new File(path);
         books = directory.listFiles();
-        Log.d("Files", "Size: " + books);
 
         // load data file
         MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
@@ -247,10 +244,6 @@ public class ListBookActivity extends AppCompatActivity {
 
        String bookFilesDir = allBookDirectories.get(itemPosition).getaPath();
        File bookPath = new File(Environment.getExternalStorageDirectory().toString() + "/AudioBooks/" + bookFilesDir);
-
-
-        Log.e("file to delete", String.valueOf(file));
-        Log.e("Book file to delete", String.valueOf(bookPath));
 
         boolean deletedFiles = deleteDirectory(bookPath);
    }

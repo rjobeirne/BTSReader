@@ -18,22 +18,6 @@ public class BookProgress {
          File bookTitle = new File(files, title);
          String mProgress = String.valueOf(progress);
 
-//        File currentBook = new File(files, "00currentBook");
-//        String currentBookInfo = title + "/" + String.valueOf(progress);
-//
-//        try {
-//            FileOutputStream fos = new FileOutputStream(currentBook);
-//            OutputStreamWriter book = new OutputStreamWriter(fos);
-//            book.write(currentBookInfo);
-//            book.close();
-//            fos.flush();
-//            fos.close();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         // Write Progress to individual book folder file
          try {
                 FileOutputStream fos = new FileOutputStream(bookTitle);
@@ -51,8 +35,6 @@ public class BookProgress {
     }
 
     public void addCurrentBook(File files, String title, String bookPath ) {
-
-        File bookTitle = new File(files, title);
 
         File currentBook = new File(files, "01currentBook");
         String currentBookInfo = title + "#" + bookPath;
@@ -88,19 +70,4 @@ public class BookProgress {
         return place;
     }
 
-    public String getCurrentBook(Context context, File files) {
-
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(files + "/00currentBook");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Scanner scanner = new Scanner((fis));
-        scanner.useDelimiter("\\Z");
-        String content = scanner.next();
-        scanner.close();
-
-        return content;
-    }
 }
