@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -30,7 +31,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     ArrayList<Long> durations;
     MediaPlayer mediaPlayer;
     SeekBar seekBar;
-    String mTrack, bookTitle, playStatus, coverPath;
+    String mTrack, bookTitle, playStatus, bookPath, coverPath;
     int index, maxIndex;
     int itemPosition;
     int currentIndex = 0;
@@ -60,6 +61,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         chapterList = new ArrayList<String>();
 
         bookTitle = intent.getStringExtra("bookTitle");
+        bookPath = intent.getStringExtra("bookPath");
         itemPosition = intent.getIntExtra("position", 0);
         chapterList = intent.getStringArrayListExtra("paths");
         chapterName = intent.getStringArrayListExtra("chapterName");
@@ -127,11 +129,18 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
             }
         });
 
-        File files = getFilesDir();
-        createPlayList(itemPosition);
+        File files = null;
+        try {
+            files = getFilesDir().getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.e("getFilesDir  ", String.valueOf(files));
+        updateProgress.addCurrentBook(files, bookTitle, bookPath);
         if (itemPosition > previousPlace) {
             updateProgress.addBookProgress(files, bookTitle, itemPosition);
         }
+        createPlayList(itemPosition);
         makeCover(coverPath);
 
         if (playStatus .equals("Play")) {

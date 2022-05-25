@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ListChapterActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class ListChapterActivity extends AppCompatActivity {
     ChapterListAdapter chapterListAdapter;
     Context context;
 
-    String bookTitle, coverPath, bookSubDirectory;
+    String bookTitle, coverPath, bookDirectory, bookSubDirectory;
     String nameChapter;
     Boolean alreadyRead = false;
     long dur, secs, mins;
@@ -85,10 +86,15 @@ public class ListChapterActivity extends AppCompatActivity {
 
         final ArrayList<ChapterModel> tempChapterList = new ArrayList<>();
 
-        String bookDirectory = Environment.getExternalStorageDirectory().toString() + "/AudioBooks/" + bookSubDirectory;
+        bookDirectory = Environment.getExternalStorageDirectory().toString() + "/AudioBooks/" + bookSubDirectory;
 
         File directory = new File(bookDirectory);
-        File progressFiles = getFilesDir();
+        File progressFiles = null;
+        try {
+            progressFiles = getFilesDir().getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         File[] files = directory.listFiles();
 
         mBookTitleTextView.setText(bookTitle);
@@ -140,6 +146,7 @@ public class ListChapterActivity extends AppCompatActivity {
 
                 chapterModel.setaTrackNumber(i);
                 chapterModel.setaTitle(bookTitle);
+                chapterModel.setaBookDir(bookSubDirectory);
                 chapterModel.setaChapter(nameChapter);
                 chapterModel.setaDuration(out);
                 chapterModel.setaRawDuration(dur);

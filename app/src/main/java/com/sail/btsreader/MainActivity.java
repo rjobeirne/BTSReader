@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,26 +80,35 @@ public class MainActivity extends AppCompatActivity {
 
     public void continueReading() throws Exception {
 
+        nContext = MainActivity.this;
 //        File files = getFilesDir();
 //        String currentBook;
 //        currentBook = findCurrentBook.getCurrentBook(context, files);
 //        Log.e("current Book", currentBook);
 //                startActivity(new Intent(getApplicationContext(), ListBookActivity.class));
-        String currentBookPlace = getFilesDir() + "/00currentBook";
+        String currentBookPlace = getFilesDir().getCanonicalPath() + "/01currentBook";
         File fi = new File(currentBookPlace);
-        FileInputStream fin = new FileInputStream(fi);
-        String currentBookFileContents = convertStreamToString(fin);
-        fin.close();
+//        FileInputStream fin = new FileInputStream(fi);
+//        String currentBookFileContents = convertStreamToString(fin);
+//        fin.close();
+
+        FileInputStream fin = null;
+        try {
+            fin = nContext.openFileInput("01currentBook");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Scanner scanner = new Scanner((fin));
+        scanner.useDelimiter("\\Z");
+        String currentBookFileContents = scanner.next();
+        scanner.close();
+
         Log.e("currentBookPlace", currentBookFileContents);
-        String currentBook = currentBookFileContents.substring(0,currentBookFileContents.indexOf("/"));
-        String place = currentBookFileContents.substring(currentBookFileContents.indexOf("/")+1);
-        int intPlace = Integer.parseInt(place.replaceAll("[\\D]",""));
-        Log.e("Book, Place", currentBook + " " + intPlace);
+        String currentBook = currentBookFileContents.substring(0,currentBookFileContents.indexOf("#"));
+        String bookDirectory = currentBookFileContents.substring(currentBookFileContents.indexOf("#")+1);
+//        int intPlace = Integer.parseInt(place.replaceAll("[\\D]",""));
+        Log.e("Book, Place", currentBook + " # " + bookDirectory);
 
-        currentBook = "Cakes and Ale";
-        String bookDirectory = "CakesAle";
-
-        nContext = MainActivity.this;
         Intent intent = new Intent(nContext, ListChapterActivity.class);
         intent.putExtra("bookName", currentBook);
 //            intent.putExtra("coverPath", bookCover);

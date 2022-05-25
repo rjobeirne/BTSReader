@@ -25,7 +25,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
     Integer trackNumber, startTrack, previousPlace;
     Long duration;
     Boolean alreadyRead;
-    public String path, bookTitle, bookCover;
+    public String path, bookTitle, bookPath, bookCover;
     public ArrayList<String> paths = new ArrayList<String>();
     public ArrayList<String> nameChapters = new ArrayList<String>();
     public ArrayList<Long> durations = new ArrayList<Long>();
@@ -38,6 +38,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         mInflater = LayoutInflater.from(context);
         mContext = context;
         chapterDataSet = chapterModelList;
+        bookPath = chapterDataSet.get(1).getaBookDir();
     }
 
     @NonNull
@@ -119,8 +120,8 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
 
             Intent intent = new Intent(nContext, AudioPlayerActivity.class);
             intent.putExtra("bookTitle", bookTitle);
+            intent.putExtra("bookPath", bookPath);
             intent.putExtra("position", itemPosition);
-            intent.putExtra("path", path);
             intent.putStringArrayListExtra("paths", paths);
             intent.putStringArrayListExtra("chapterName", nameChapters);
             intent.putExtra("durations", durations);

@@ -6,7 +6,7 @@ public class ChapterModel {
     String aChapter;
     String aDuration;
     Long aRawDuration;
-    String aPath;
+    String aPath, aBookDir;
     String aTitle;
     String aCover;
     Boolean aRead;
@@ -15,6 +15,10 @@ public class ChapterModel {
     public String getaPath() { return aPath; }
 
     public void setaPath(String aPath) { this.aPath = aPath; }
+
+    public String getaBookDir() { return aBookDir; }
+
+    public void setaBookDir(String aBookDir) { this.aBookDir = aBookDir; }
 
     public Integer getaTrackNumber() { return aTrackNumber; }
 

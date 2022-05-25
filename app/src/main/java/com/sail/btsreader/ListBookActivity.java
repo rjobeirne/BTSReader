@@ -34,6 +34,7 @@ public class ListBookActivity extends AppCompatActivity {
     String nameDirectoryFiles, coverPath, author;
 
     String bookDirectory, bookTitle;
+    File dataFiles;
 
     ArrayList<BookModel> allBookDirectories;
     BookProgress updateProgress;
@@ -58,6 +59,12 @@ public class ListBookActivity extends AppCompatActivity {
 
         // Find all books in the /AudioBook directory
         getBooks();
+
+        try {
+            dataFiles = getFilesDir().getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void getBooks() {
@@ -154,8 +161,7 @@ public class ListBookActivity extends AppCompatActivity {
 
     public void addBookData(String title) {
 
-        File files = getFilesDir();
-        File newBook = new File(files, title);
+        File newBook = new File(dataFiles, title);
         if (!newBook.exists()) {
 
             try {
@@ -227,7 +233,7 @@ public class ListBookActivity extends AppCompatActivity {
 
         String title = allBookDirectories.get(itemPosition).getaTitle();
         customToast("Resetting ");
-        updateProgress.addBookProgress(getFilesDir(), title, -1);
+        updateProgress.addBookProgress(dataFiles, title, -1);
     }
 
    private void deleteBook(int itemPosition) {
@@ -236,8 +242,7 @@ public class ListBookActivity extends AppCompatActivity {
         String title = allBookDirectories.get(itemPosition).getaTitle();
 
         // Delete progress file
-        File dir = getFilesDir();
-        File file = new File(dir, title);
+        File file = new File(dataFiles, title);
         boolean deletedProgress = file.delete();
 
        String bookFilesDir = allBookDirectories.get(itemPosition).getaPath();
