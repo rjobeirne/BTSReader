@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(nContext, ListChapterActivity.class);
         intent.putExtra("bookName", currentBook);
         intent.putExtra("bookPath", bookDirectory);
-
+        intent.putExtra("coverPath", currentCover);
         nContext.startActivity(intent);
     }
 
