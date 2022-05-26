@@ -44,10 +44,6 @@ public class MainActivity extends AppCompatActivity {
         Button continueListeningBtn = findViewById(R.id.continue_listen);
         View imageViewCover = findViewById(R.id.current_cover);
 
-//        currentCover =                 Environment.getExternalStorageDirectory().toString()
-//                + "/AudioBooks/" + bookDirectory + "/cover.jpg";
-
-
         Bitmap bitmap = BitmapFactory.decodeFile(currentCover);
         BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
         imageViewCover.setBackground(coverBMP);
@@ -70,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         // The request code used in ActivityCompat.requestPermissions()
         // and returned in the Activity's onRequestPermissionsResult()
@@ -123,5 +120,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    /*
+    Reset current when restarting
+     */
+    public void onRestart()
+    {
+    super.onRestart();
+        finish();
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 }
