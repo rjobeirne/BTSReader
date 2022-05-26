@@ -25,7 +25,7 @@
         android:id="@+id/list_books"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Book List"
+        android:text="Library"
         android:background="@color/opaque_teal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,9 +45,10 @@
 
     <ImageView
         android:id="@+id/current_cover"
-        android:layout_width="180dp"
+        android:layout_width="120dp"
         android:layout_height="180dp"
         android:layout_marginTop="24dp"
+        android:alpha="0.6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -57,6 +58,7 @@
         android:layout_width="280dp"
         android:layout_height="208dp"
         android:src="@drawable/library"
+        android:alpha="0.6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

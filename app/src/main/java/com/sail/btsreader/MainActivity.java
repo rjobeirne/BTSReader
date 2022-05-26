@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     Context nContext;
     String currentBook, bookDirectory;
-    File currentCover;
+    String currentCover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
         Button continueListeningBtn = findViewById(R.id.continue_listen);
         View imageViewCover = findViewById(R.id.current_cover);
 
-        currentCover = new File(Environment.getExternalStorageDirectory().toString()
-                + "/AudioBooks/" + currentBook + "/cover.jpg");
+        currentCover =                 Environment.getExternalStorageDirectory().toString()
+                + "/AudioBooks/" + bookDirectory + "/cover.jpg";
 
 
-        Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(currentCover));
+        Bitmap bitmap = BitmapFactory.decodeFile(currentCover);
         BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
         imageViewCover.setBackground(coverBMP);
 
