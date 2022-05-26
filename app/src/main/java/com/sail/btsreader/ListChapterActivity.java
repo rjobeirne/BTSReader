@@ -47,6 +47,7 @@ public class ListChapterActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         bookTitle = intent.getStringExtra("bookName");
+        coverPath = intent.getStringExtra("coverPath");
         bookSubDirectory = intent.getStringExtra("bookPath");
         mBookTitleTextView = findViewById(R.id.book_title);
         mCoverView = findViewById(R.id.cover_background);

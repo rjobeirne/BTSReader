@@ -98,6 +98,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
 
             Intent intent = new Intent(nContext, ListChapterActivity.class);
             intent.putExtra("bookName", bookName);
+            intent.putExtra("coverPath", bookCover);
             intent.putExtra("bookPath", bookDirectory);
 
             nContext.startActivity(intent);
