@@ -356,10 +356,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
     @Override
     public void onBackPressed() {
-        stopPlaying();
         finish();
-
-//        super.onBackPressed();
     }
 
     @Override
