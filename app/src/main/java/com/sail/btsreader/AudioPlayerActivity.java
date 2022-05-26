@@ -141,7 +141,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
             e.printStackTrace();
         }
 
-        updateProgress.addCurrentBook(files, bookTitle, bookPath);
+        updateProgress.addCurrentBook(files, bookTitle, bookPath, coverPath);
         if (itemPosition > previousPlace) {
             updateProgress.addBookProgress(files, bookTitle, itemPosition);
         }

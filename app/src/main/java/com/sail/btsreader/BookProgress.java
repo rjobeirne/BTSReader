@@ -34,10 +34,10 @@ public class BookProgress {
             }
     }
 
-    public void addCurrentBook(File files, String title, String bookPath ) {
+    public void addCurrentBook(File files, String title, String bookPath, String coverPath ) {
 
-        File currentBook = new File(files, "01currentBook");
-        String currentBookInfo = title + "#" + bookPath;
+        File currentBook = new File(files, "00currentBook");
+        String currentBookInfo = title + "#" + bookPath + "$" + coverPath;
 
         try {
             FileOutputStream fos = new FileOutputStream(currentBook);

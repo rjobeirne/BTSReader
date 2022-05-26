@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         Button continueListeningBtn = findViewById(R.id.continue_listen);
         View imageViewCover = findViewById(R.id.current_cover);
 
-        currentCover =                 Environment.getExternalStorageDirectory().toString()
-                + "/AudioBooks/" + bookDirectory + "/cover.jpg";
+//        currentCover =                 Environment.getExternalStorageDirectory().toString()
+//                + "/AudioBooks/" + bookDirectory + "/cover.jpg";
 
 
         Bitmap bitmap = BitmapFactory.decodeFile(currentCover);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         FileInputStream fin = null;
         try {
-            fin = nContext.openFileInput("01currentBook");
+            fin = nContext.openFileInput("00currentBook");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -100,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
         scanner.close();
 
         currentBook = currentBookFileContents.substring(0, currentBookFileContents.indexOf("#"));
-        bookDirectory = currentBookFileContents.substring(currentBookFileContents.indexOf("#") + 1);
+        bookDirectory = currentBookFileContents.substring(currentBookFileContents.indexOf("#") + 1,
+                currentBookFileContents.indexOf("$"));
+        currentCover = currentBookFileContents.substring(currentBookFileContents.indexOf("$") + 1);
     }
 
     public void continueReading() {

@@ -55,8 +55,8 @@
 
 <ImageView
         android:id="@+id/book_list"
-        android:layout_width="280dp"
-        android:layout_height="208dp"
+        android:layout_width="240dp"
+        android:layout_height="192dp"
         android:src="@drawable/library"
         android:alpha="0.6"
         app:layout_constraintEnd_toEndOf="parent"
