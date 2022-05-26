@@ -7,11 +7,18 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -19,15 +26,31 @@ import java.util.Scanner;
 public class MainActivity extends AppCompatActivity {
 
     Context nContext;
+    String currentBook, bookDirectory;
+    File currentCover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try {
+            findCurrentBook();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Button listBooksBtn = findViewById(R.id.list_books);
         Button continueListeningBtn = findViewById(R.id.continue_listen);
+        View imageViewCover = findViewById(R.id.current_cover);
+
+        currentCover = new File(Environment.getExternalStorageDirectory().toString()
+                + "/AudioBooks/" + currentBook + "/cover.jpg");
+
+
+        Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(currentCover));
+        BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
+        imageViewCover.setBackground(coverBMP);
 
         listBooksBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void continueReading() throws Exception {
+    public void findCurrentBook() throws Exception {
 
         nContext = MainActivity.this;
 
@@ -76,8 +99,11 @@ public class MainActivity extends AppCompatActivity {
         String currentBookFileContents = scanner.next();
         scanner.close();
 
-        String currentBook = currentBookFileContents.substring(0,currentBookFileContents.indexOf("#"));
-        String bookDirectory = currentBookFileContents.substring(currentBookFileContents.indexOf("#")+1);
+        currentBook = currentBookFileContents.substring(0, currentBookFileContents.indexOf("#"));
+        bookDirectory = currentBookFileContents.substring(currentBookFileContents.indexOf("#") + 1);
+    }
+
+    public void continueReading() {
 
         Intent intent = new Intent(nContext, ListChapterActivity.class);
         intent.putExtra("bookName", currentBook);

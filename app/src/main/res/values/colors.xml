@@ -12,5 +12,6 @@
     <color name="grey">#787878</color>
     <color name="yellow">#FFEB3B</color>
     <color name="dark_grey">#2B2A2A</color>
+    <color name="opaque_teal">#8003A9F4</color>
 
 </resources>

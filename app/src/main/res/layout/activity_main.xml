@@ -7,26 +7,58 @@
     tools:context=".MainActivity">
 
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text=" Bedtime Story Reader "
+        android:textSize="32sp"
+        android:textColor="@color/white"
+        android:background="@color/opaque_teal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+
     <Button
         android:id="@+id/list_books"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
         android:text="Book List"
+        android:background="@color/opaque_teal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/book_list"
+        app:layout_constraintTop_toTopOf="@id/book_list" />
 
     <Button
         android:id="@+id/continue_listen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:gravity="center_horizontal"
         android:text="Continue Listening"
+        android:background="@color/opaque_teal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/current_cover"
+        app:layout_constraintTop_toTopOf="@id/current_cover" />
 
+    <ImageView
+        android:id="@+id/current_cover"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+<ImageView
+        android:id="@+id/book_list"
+        android:layout_width="280dp"
+        android:layout_height="208dp"
+        android:src="@drawable/library"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
