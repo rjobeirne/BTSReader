@@ -32,7 +32,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     SeekBar seekBar;
     String mTrack, bookTitle, playStatus, bookPath, coverPath;
     int index, maxIndex;
-    int itemPosition;
+    int itemPosition, itemPositionRelative;
     int currentIndex = 0;
     ArrayList<String> playList;
     Timer timer;
@@ -74,7 +74,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         // Recalc position if ScrollToPosition is invoked in ListChapterAcitivity because it
         // changes the list size for some strange reason.
         if (previousStart > 4) {
-            itemPosition = itemPosition - previousStart + 4;
+            itemPositionRelative = itemPosition - previousStart + 4;
         }
 
         mediaPlayer = new MediaPlayer();
@@ -225,11 +225,11 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
             mediaPlayer.reset();
             mediaPlayer.setDataSource(playListPaths.get(index));
             mediaPlayer.prepare();
-            String currentChapter = (String) chapterName.get(itemPosition + index);
+            String currentChapter = (String) chapterName.get(itemPositionRelative + index);
             mAudioName.setText(currentChapter);
 
         // Update chapter duration
-            chapterTime = durations.get(itemPosition);
+            chapterTime = durations.get(itemPositionRelative);
 
         // Next and previous buttons
             Button skipToPrevious = findViewById(R.id.skip_to_previous);

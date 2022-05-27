@@ -99,8 +99,13 @@ public class ListChapterActivity extends AppCompatActivity {
         mBookTitleTextView.setText(bookTitle);
         previousPlace = readProgress.getBookProgress(context, progressFiles, bookTitle);
 
-        startPlace = Integer.parseInt(previousPlace.substring(0,previousPlace.indexOf("#")));
-        lastPlace = Integer.parseInt(previousPlace.substring(previousPlace.indexOf("#")+1));
+        if (previousPlace.contains("#")) {
+            startPlace = Integer.parseInt(previousPlace.substring(0, previousPlace.indexOf("#")));
+            lastPlace = Integer.parseInt(previousPlace.substring(previousPlace.indexOf("#") + 1));
+        } else {
+            startPlace = Integer.parseInt(previousPlace);
+            lastPlace = Integer.parseInt(previousPlace);
+        }
 
         for (int i = 0; i < files.length; i++) {
 
