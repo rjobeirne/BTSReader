@@ -13,10 +13,10 @@ import java.util.Scanner;
 
 public class BookProgress {
 
-    public void addBookProgress(File files, String title, int progress) {
+    public void addBookProgress(File files, String title, int start, int last) {
 
          File bookTitle = new File(files, title);
-         String mProgress = String.valueOf(progress);
+         String mProgress = start + "#" + last;
 
         // Write Progress to individual book folder file
          try {
@@ -26,7 +26,7 @@ public class BookProgress {
                 book.close();
                 fos.flush();
                 fos.close();
-             Log.e("stored progress :", mProgress);
+             Log.e("start :", mProgress);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -53,7 +53,7 @@ public class BookProgress {
         }
     }
 
-    public int getBookProgress(Context context, File files, String title) {
+    public String getBookProgress(Context context, File files, String title) {
 
         FileInputStream fis = null;
         try {
@@ -66,8 +66,7 @@ public class BookProgress {
         String content = scanner.next();
         scanner.close();
 
-        int place = Integer.parseInt(content);
-        return place;
+        return content;
     }
 
 }

@@ -27,8 +27,7 @@
                 android:id="@+id/already_read"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_beenhere_black_24dp" />
+                android:layout_gravity="center_vertical" />
 
             <TextView
                 android:id="@+id/chapter_number"

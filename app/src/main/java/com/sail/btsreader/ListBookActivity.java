@@ -230,7 +230,7 @@ public class ListBookActivity extends AppCompatActivity {
 
         String title = allBookDirectories.get(itemPosition).getaTitle();
         customToast("Resetting ");
-        updateProgress.addBookProgress(dataFiles, title, -1);
+        updateProgress.addBookProgress(dataFiles, title, -1, -1);
     }
 
    private void deleteBook(int itemPosition) {

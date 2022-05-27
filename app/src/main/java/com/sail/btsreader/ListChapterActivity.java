@@ -29,12 +29,14 @@ public class ListChapterActivity extends AppCompatActivity {
     String bookTitle, coverPath, bookDirectory, bookSubDirectory;
     String nameChapter;
     Boolean alreadyRead = false;
+    Boolean possiblyRead = false;
     long dur, secs, mins;
     String seconds, minutes;
 
     TextView mBookTitleTextView;
     View mCoverView;
-    int previousPlace;
+    String previousPlace;
+    int startPlace, lastPlace;
     int chptNo =-1;
 
     BookProgress readProgress;
@@ -76,7 +78,7 @@ public class ListChapterActivity extends AppCompatActivity {
         listChapterView.setAdapter(chapterListAdapter);
         
         // Centre list around current chapter
-         listChapterView.scrollToPosition(previousPlace - 4);
+         listChapterView.scrollToPosition(startPlace - 4);
     }
 
     public ArrayList<ChapterModel> getChapterList(final Context context, String mBookTitle) {
@@ -96,6 +98,9 @@ public class ListChapterActivity extends AppCompatActivity {
 
         mBookTitleTextView.setText(bookTitle);
         previousPlace = readProgress.getBookProgress(context, progressFiles, bookTitle);
+
+        startPlace = Integer.parseInt(previousPlace.substring(0,previousPlace.indexOf("#")));
+        lastPlace = Integer.parseInt(previousPlace.substring(previousPlace.indexOf("#")+1));
 
         for (int i = 0; i < files.length; i++) {
 
@@ -134,7 +139,13 @@ public class ListChapterActivity extends AppCompatActivity {
                 }
                 out = minutes + ":" + seconds;
 
-                if(chptNo <= previousPlace) {
+                if(chptNo <= lastPlace) {
+                    possiblyRead = true;
+                } else {
+                    possiblyRead = false;
+                }
+
+                if(chptNo <= startPlace) {
                     alreadyRead = true;
                 } else {
                     alreadyRead = false;
@@ -149,7 +160,9 @@ public class ListChapterActivity extends AppCompatActivity {
                 chapterModel.setaPath(chapterPath);
                 chapterModel.setaCover(coverPath);
                 chapterModel.setRead(alreadyRead);
-                chapterModel.setPreviousPLace(previousPlace);
+                chapterModel.setPossiblyRead(possiblyRead);
+                chapterModel.setPreviousStart(startPlace);
+                chapterModel.setPreviousLast(lastPlace);
                 tempChapterList.add(chapterModel);
 
                 // close object

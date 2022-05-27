@@ -44,7 +44,8 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     View mCoverView;
     long chapterTime, currentPosition, newPosition, remainingTime;
     TextView mBookTitleTextView;
-    int previousPlace;
+    int previousStart, previousLast;
+    File files;
 
     BookProgress updateProgress;
 
@@ -67,12 +68,13 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         durations =(ArrayList<Long>) intent.getSerializableExtra("durations");
         playStatus = intent.getStringExtra("playStatus");
         coverPath = intent.getStringExtra("cover");
-        previousPlace = intent.getIntExtra("previousPlace", 0);
+        previousStart = intent.getIntExtra("previousStart", 0);
+        previousLast = intent.getIntExtra("previousLast", 0);
 
         // Recalc position if ScrollToPosition is invoked in ListChapterAcitivity because it
         // changes the list size for some strange reason.
-        if (previousPlace > 4) {
-            itemPosition = itemPosition - previousPlace + 4;
+        if (previousStart > 4) {
+            itemPosition = itemPosition - previousStart + 4;
         }
 
         mediaPlayer = new MediaPlayer();
@@ -134,7 +136,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
             }
         });
 
-        File files = null;
+        files = null;
         try {
             files = getFilesDir().getCanonicalFile();
         } catch (IOException e) {
@@ -142,9 +144,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         }
 
         updateProgress.addCurrentBook(files, bookTitle, bookPath, coverPath);
-        if (itemPosition > previousPlace) {
-            updateProgress.addBookProgress(files, bookTitle, itemPosition);
-        }
+
         createPlayList(itemPosition);
         makeCover(coverPath);
 
@@ -213,6 +213,10 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
             }
         }
         mBookTitleTextView.setText(bookTitle);
+
+        if (itemPosition > previousStart) {
+            updateProgress.addBookProgress(files, bookTitle, startTrack, lastTrack);
+        }
         return playListPaths;
     }
 

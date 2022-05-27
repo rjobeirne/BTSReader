@@ -9,8 +9,8 @@ public class ChapterModel {
     String aPath, aBookDir;
     String aTitle;
     String aCover;
-    Boolean aRead;
-    Integer aPreviousPlace;
+    Boolean aRead, pRead;
+    Integer aPreviousStart, aPreviousLast;
 
     public String getaPath() { return aPath; }
 
@@ -56,9 +56,17 @@ public class ChapterModel {
 
     public void setRead(Boolean aRead) { this.aRead = aRead; }
 
-    public Integer getPreviousPlace() { return aPreviousPlace;}
+    public Boolean getPossiblyRead() { return pRead;}
 
-    public void setPreviousPLace(Integer aPreviousPlace) { this.aPreviousPlace = aPreviousPlace; }
+    public void setPossiblyRead(Boolean pRead) { this.pRead = pRead; }
+
+    public Integer getPreviousStart() { return aPreviousStart;}
+
+    public void setPreviousStart(Integer aPreviousStart) { this.aPreviousStart = aPreviousStart; }
+
+    public Integer getPreviousLast() { return aPreviousLast;}
+
+    public void setPreviousLast(Integer aPreviousLast) { this.aPreviousLast = aPreviousLast; }
 
 //    public String getaAuthor() {
 //        return aAuthor;

@@ -2,12 +2,15 @@ package com.sail.btsreader;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,9 +24,9 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
     public String mChapterName, mChapterDuration;
 
     public  int minTime = 15 * 60 * 1000;
-    Integer trackNumber, startTrack, previousPlace;
+    Integer trackNumber, startTrack, previousStart, previousLast;
     Long duration;
-    Boolean alreadyRead;
+    Boolean alreadyRead, possiblyRead;
     public String path, bookTitle, bookPath, bookCover;
     public ArrayList<String> paths = new ArrayList<String>();
     public ArrayList<String> nameChapters = new ArrayList<String>();
@@ -61,18 +64,28 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         bookTitle = chapterDataSet.get(i).getaTitle();
         bookCover = chapterDataSet.get(i).getaCover();
         alreadyRead = chapterDataSet.get(i).getRead();
-        previousPlace = chapterDataSet.get(i).getPreviousPlace();
+        possiblyRead = chapterDataSet.get(i).getPossiblyRead();
+        previousStart = chapterDataSet.get(i).getPreviousStart();
+        previousLast = chapterDataSet.get(i).getPreviousLast();
 
         mChapterName = mChapterName.substring(0, mChapterName.indexOf(".")); // remove file extension
 
         chapterViewHolder.mChapterNoTextView.setText(mChapterName);
         chapterViewHolder.mChapterDurationTextView.setText(mChapterDuration);
-        if (alreadyRead) {
-            chapterViewHolder.mAlreadyReadView.setVisibility(View.VISIBLE);
-        } else {
+//        if (alreadyRead) {
+//            chapterViewHolder.mAlreadyReadView.setVisibility(View.VISIBLE);
+//        } else {
             chapterViewHolder.mAlreadyReadView.setVisibility(View.INVISIBLE);
+//        }
+
+        if(possiblyRead) {
+            chapterViewHolder.mAlreadyReadView.setVisibility(View.VISIBLE);
+            chapterViewHolder.mAlreadyReadView.setImageResource(R.drawable.possibly_read);
         }
 
+        if (alreadyRead) {
+            chapterViewHolder.mAlreadyReadView.setImageResource(R.drawable.already_read);
+        }
 
         paths.add(path);
         nameChapters.add(mChapterName);
@@ -119,7 +132,8 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             intent.putExtra("durations", durations);
             intent.putExtra("playStatus", playStatus);
             intent.putExtra("cover", bookCover);
-            intent.putExtra("previousPlace", previousPlace);
+            intent.putExtra("previousStart", previousStart);
+            intent.putExtra("previousLast", previousLast);
             nContext.startActivity(intent);
         }
     }
