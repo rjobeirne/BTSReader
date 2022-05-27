@@ -80,7 +80,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
 
         if(possiblyRead) {
             chapterViewHolder.mAlreadyReadView.setVisibility(View.VISIBLE);
-            chapterViewHolder.mAlreadyReadView.setImageResource(R.drawable.possibly_read);
+            chapterViewHolder.mAlreadyReadView.setImageResource(R.drawable.possibly_read5);
         }
 
         if (alreadyRead) {

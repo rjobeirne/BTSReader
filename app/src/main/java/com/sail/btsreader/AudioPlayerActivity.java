@@ -44,7 +44,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     View mCoverView;
     long chapterTime, currentPosition, newPosition, remainingTime;
     TextView mBookTitleTextView;
-    int previousStart, previousLast;
+    int previousStart, previousLast, listOffset;
     File files;
 
     BookProgress updateProgress;
@@ -74,8 +74,11 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         // Recalc position if ScrollToPosition is invoked in ListChapterAcitivity because it
         // changes the list size for some strange reason.
         if (previousStart > 4) {
-            itemPositionRelative = itemPosition - previousStart + 4;
+            listOffset = previousStart - 4;
+        } else  {
+            listOffset = 0;
         }
+        itemPositionRelative = itemPosition - listOffset;
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(this);
@@ -145,7 +148,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
         updateProgress.addCurrentBook(files, bookTitle, bookPath, coverPath);
 
-        createPlayList(itemPosition);
+        createPlayList(itemPositionRelative);
         makeCover(coverPath);
 
         if (playStatus .equals("Play")) {
@@ -215,7 +218,8 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         mBookTitleTextView.setText(bookTitle);
 
         if (itemPosition > previousStart) {
-            updateProgress.addBookProgress(files, bookTitle, startTrack, lastTrack);
+            updateProgress.addBookProgress(files, bookTitle, startTrack + listOffset,
+                    lastTrack + listOffset);
         }
         return playListPaths;
     }
