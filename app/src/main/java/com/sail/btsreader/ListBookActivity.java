@@ -55,15 +55,15 @@ public class ListBookActivity extends AppCompatActivity {
             }
         });
 
-
-        // Find all books in the /AudioBook directory
-        getBooks();
-
         try {
             dataFiles = getFilesDir().getCanonicalFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Find all books in the /AudioBook directory
+        getBooks();
+
     }
 
     public void getBooks() {
