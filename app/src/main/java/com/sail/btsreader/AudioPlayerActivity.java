@@ -373,7 +373,6 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
             playChapter(index + 1);
             index = index + 1;
         } else {
-            mediaPlayer.release();
             finish();
         }
     }
