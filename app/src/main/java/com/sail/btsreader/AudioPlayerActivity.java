@@ -187,7 +187,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.stop();
+                stopPlaying();
                 finish();
             }
         });
@@ -292,7 +292,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     public void stopPlaying(){
         if(mediaPlayer!=null){
             mediaPlayer.stop();
-            mediaPlayer.release();
+            mediaPlayer.reset();
         }
     }
 
@@ -364,7 +364,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
     @Override
     public void onBackPressed() {
-        mediaPlayer.stop();
+        stopPlaying();
         finish();
     }
 
