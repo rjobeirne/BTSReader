@@ -30,6 +30,8 @@ public class RadioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
         final ToggleButton btnMel = (ToggleButton)findViewById(R.id.play_mel);
         final ToggleButton btnRN = (ToggleButton)findViewById(R.id.play_rn);
+        btnMel.setBackgroundResource(R.drawable.outline_play_circle_24);
+        btnRN.setBackgroundResource(R.drawable.outline_play_circle_24);
 
         btnMel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -43,14 +45,13 @@ public class RadioActivity extends AppCompatActivity implements MediaPlayer.OnCo
                         pauseRadio();
                     }
                     flagPaused = false;
-                    flagPaused = true;
                 } else {
                     btnMel.setBackgroundResource(R.drawable.outline_play_circle_24);
                     pauseRadio();
+                    flagPaused = true;
                 }
             }
         });
-
 
         btnRN.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -64,17 +65,14 @@ public class RadioActivity extends AppCompatActivity implements MediaPlayer.OnCo
                         pauseRadio();
                     }
                     flagPaused = false;
-                    flagPaused = true;
                 } else {
                     btnRN.setBackgroundResource(R.drawable.outline_play_circle_24);
                     pauseRadio();
+                    flagPaused = true;
                 }
             }
         });
     }
-
-
-
 
     public void playRadio(String url) {
         try {
@@ -90,7 +88,7 @@ public class RadioActivity extends AppCompatActivity implements MediaPlayer.OnCo
 
     public void pauseRadio() {
        if(mediaPlayer!=null) {
-           mediaPlayer.stop();
+           mediaPlayer.pause();
        }
     }
 
