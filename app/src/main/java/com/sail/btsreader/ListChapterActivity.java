@@ -36,8 +36,8 @@ public class ListChapterActivity extends AppCompatActivity {
 
     TextView mBookTitleTextView;
     View mCoverView;
-    String previousPlace;
-    int startPlace, lastPlace;
+    String previousPlace, trackNumber;
+    int trackNo, startPlace, lastPlace;
     int chptNo =-1;
 
     BookProgress readProgress;
@@ -128,6 +128,9 @@ public class ListChapterActivity extends AppCompatActivity {
                 duration = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
                 dur = Long.parseLong(duration);
 
+                trackNumber = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER);
+                trackNo = Integer.valueOf(trackNumber);
+
                 // convert duration to minute:seconds
                 secs = (dur % 60000) / 1000;
                 mins = dur / 60000;
@@ -145,19 +148,19 @@ public class ListChapterActivity extends AppCompatActivity {
                 }
                 out = minutes + ":" + seconds;
 
-                if(chptNo <= lastPlace) {
+                if(trackNo <= lastPlace + 1) {
                     possiblyRead = true;
                 } else {
                     possiblyRead = false;
                 }
 
-                if(chptNo <= startPlace) {
+                if(trackNo <= startPlace + 1) {
                     alreadyRead = true;
                 } else {
                     alreadyRead = false;
                 }
 
-                chapterModel.setaTrackNumber(i);
+                chapterModel.setaFileNumber(i);
                 chapterModel.setaTitle(bookTitle);
                 chapterModel.setaBookDir(bookSubDirectory);
                 chapterModel.setaChapter(nameChapter);

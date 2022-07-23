@@ -2,7 +2,7 @@ package com.sail.btsreader;
 
 public class ChapterModel {
 
-    Integer aTrackNumber;
+    Integer aFileNumber;
     String aChapter;
     String aDuration;
     Long aRawDuration;
@@ -20,10 +20,10 @@ public class ChapterModel {
 
     public void setaBookDir(String aBookDir) { this.aBookDir = aBookDir; }
 
-    public Integer getaTrackNumber() { return aTrackNumber; }
+    public Integer getaFileNumber() { return aFileNumber; }
 
-    public void setaTrackNumber(Integer aTrackNumber) {
-        this.aTrackNumber = aTrackNumber;
+    public void setaFileNumber(Integer aFileNumber) {
+        this.aFileNumber = aFileNumber;
     }
 
     public String getaChapter() { return aChapter; }
