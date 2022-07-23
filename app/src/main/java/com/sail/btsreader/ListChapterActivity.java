@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ListChapterActivity extends AppCompatActivity {
 
@@ -169,6 +170,9 @@ public class ListChapterActivity extends AppCompatActivity {
                 chapterModel.setPreviousStart(startPlace);
                 chapterModel.setPreviousLast(lastPlace);
                 tempChapterList.add(chapterModel);
+
+                // Sort the chapters chronologically
+                Collections.sort(tempChapterList, (obj1, obj2) -> obj1.getaChapter().compareToIgnoreCase(obj2.getaChapter()));
 
                 // close object
                 metaRetriever.release();
