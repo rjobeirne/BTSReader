@@ -10,15 +10,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -42,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button listBooksBtn = findViewById(R.id.list_books);
         Button continueListeningBtn = findViewById(R.id.continue_listen);
+        Button listenRadioBtn = findViewById(R.id.play_radio);
         View imageViewCover = findViewById(R.id.current_cover);
 
         Bitmap bitmap = BitmapFactory.decodeFile(currentCover);
@@ -67,6 +65,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listenRadioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    listenRadio();
+                    Log.e("Button pressed","");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
 
         // The request code used in ActivityCompat.requestPermissions()
         // and returned in the Activity's onRequestPermissionsResult()
@@ -79,6 +91,13 @@ public class MainActivity extends AppCompatActivity {
         if (!hasPermissions(this, PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
+    }
+
+    private void listenRadio() {
+        Intent i = new Intent(MainActivity.this, RadioActivity.class);
+        startActivity(i);
+        Log.e("Launch radio", "");
+
     }
 
     public void findCurrentBook() throws Exception {

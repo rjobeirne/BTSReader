@@ -19,6 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <Button
+        android:id="@+id/play_radio"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="Radio"
+        android:background="@color/opaque_teal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_cover"
+        app:layout_constraintBottom_toTopOf="@id/book_list" />
 
 
     <Button
