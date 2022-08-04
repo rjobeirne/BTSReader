@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void listenRadio() {
-        Intent i = new Intent(MainActivity.this, RadioActivity.class);
+        Intent i = new Intent(MainActivity.this, RadioPlayerActivity.class);
         startActivity(i);
         Log.e("Launch radio", "");
 
