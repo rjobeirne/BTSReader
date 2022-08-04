@@ -51,6 +51,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.sail.btsreader.SettingsActivity"
+            android:theme="@style/SettingsTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>

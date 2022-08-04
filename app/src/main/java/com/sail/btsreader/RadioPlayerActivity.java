@@ -31,7 +31,6 @@ public class RadioPlayerActivity extends AppCompatActivity {
     int sleepTimer = 45;  // minutes
     TextView mNowPlayingShowText;
     String nameShow;
-    private ImageButton settingsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,27 +58,6 @@ public class RadioPlayerActivity extends AppCompatActivity {
         final ToggleButton btnPlayStop = findViewById(R.id.play_button);
 
         btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
-//        settingsBtn = findViewById(R.id.button_settings);
-
-        // Settings and preferences
-        // Send Toast message on short click
-//        settingsBtn.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                shortClick();
-//            }
-//        });
-
-        // Go to settings page on long click
-//        settingsBtn.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                // opening a new intent to open settings activity.
-//                Intent i = new Intent(RadioPlayerActivity.this, SettingsActivity.class);
-//                startActivity(i);
-//                return false;
-//            }
-//        });
 
         btnMel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -221,17 +199,6 @@ public class RadioPlayerActivity extends AppCompatActivity {
     public void onBackPressed() {
         stopPlaying();
         finish();
-    }
-
-
-    public void shortClick() {
-        Toast toast = Toast.makeText(this, "Long click to get to Settings", Toast.LENGTH_LONG);
-        View view = toast.getView();
-        view.setBackgroundColor(getResources().getColor(R.color.dark_grey));
-        TextView text = (TextView) view.findViewById(android.R.id.message);
-        /*Here you can do anything with above textview like text.setTextColor(Color.parseColor("#000000"));*/
-        text.setTextColor(Color.parseColor("#FFFFFF"));
-        toast.show();
     }
 
 

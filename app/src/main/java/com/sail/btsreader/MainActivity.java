@@ -4,16 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.io.FileInputStream;
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Context nContext;
     String currentBook, bookDirectory;
     String currentCover;
+    private ImageButton settingsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,29 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeFile(currentCover);
         BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
         imageViewCover.setBackground(coverBMP);
+
+        settingsBtn = findViewById(R.id.button_settings);
+
+        // Settings and preferences
+        // Send Toast message on short click
+        settingsBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                shortClick();
+            }
+        });
+
+        // Go to settings page on long click
+        settingsBtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                // opening a new intent to open settings activity.
+                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(i);
+                return false;
+            }
+        });
+
 
         listBooksBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,4 +180,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(getIntent());
         overridePendingTransition(0, 0);
     }
+
+
+    public void shortClick() {
+        Toast toast = Toast.makeText(this, "Long click to get to Settings", Toast.LENGTH_LONG);
+        View view = toast.getView();
+        view.setBackgroundColor(getResources().getColor(R.color.dark_grey));
+        TextView text = (TextView) view.findViewById(android.R.id.message);
+        /*Here you can do anything with above textview like text.setTextColor(Color.parseColor("#000000"));*/
+        text.setTextColor(Color.parseColor("#FFFFFF"));
+        toast.show();
+    }
+
 }
