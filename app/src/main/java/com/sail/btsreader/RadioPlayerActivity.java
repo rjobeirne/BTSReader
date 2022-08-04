@@ -58,29 +58,28 @@ public class RadioPlayerActivity extends AppCompatActivity {
         final ToggleButton btnPBS = findViewById(R.id.play_pbs);
         final ToggleButton btnPlayStop = findViewById(R.id.play_button);
 
-//        settingsBtn = findViewById(R.id.button_settings);
-
         btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
+//        settingsBtn = findViewById(R.id.button_settings);
 
         // Settings and preferences
         // Send Toast message on short click
-        settingsBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                shortClick();
-            }
-        });
+//        settingsBtn.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                shortClick();
+//            }
+//        });
 
         // Go to settings page on long click
-        settingsBtn.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                // opening a new intent to open settings activity.
-                Intent i = new Intent(RadioPlayerActivity.this, SettingsActivity.class);
-                startActivity(i);
-                return false;
-            }
-        });
+//        settingsBtn.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                // opening a new intent to open settings activity.
+//                Intent i = new Intent(RadioPlayerActivity.this, SettingsActivity.class);
+//                startActivity(i);
+//                return false;
+//            }
+//        });
 
         btnMel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
