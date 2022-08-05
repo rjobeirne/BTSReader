@@ -1,12 +1,14 @@
 package com.sail.btsreader;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.os.Handler;
 import android.view.View;
@@ -194,6 +196,14 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
 
     }  // end of onCreate
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Get settings from preferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        minTime = Integer.parseInt(sharedPreferences.getString("prefs_chapter_length", "15"));
+    }
 
 
     public ArrayList createPlayList(int startTrack) {

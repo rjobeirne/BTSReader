@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -134,13 +135,13 @@ public class RadioPlayerActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        // Get settings from preferences
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        sleepTimer = Integer.parseInt(sharedPreferences.getString("prefs_listen_time", "45"));
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Get settings from preferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sleepTimer = Integer.parseInt(sharedPreferences.getString("prefs_listen_time", "45"));
+    }
 
 
     public void playRadio(String url) {
