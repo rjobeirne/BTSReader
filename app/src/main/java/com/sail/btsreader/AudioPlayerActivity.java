@@ -302,7 +302,6 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     public void stopPlaying(){
         if(mediaPlayer!=null){
             mediaPlayer.stop();
-            mediaPlayer.reset();
         }
     }
 
