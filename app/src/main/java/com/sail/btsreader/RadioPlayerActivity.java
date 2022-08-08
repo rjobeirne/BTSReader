@@ -62,6 +62,9 @@ public class RadioPlayerActivity extends AppCompatActivity {
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (flagPlaying){
+                    stopPlaying();
+                }
                 finish();
             }
         });
@@ -131,13 +134,15 @@ public class RadioPlayerActivity extends AppCompatActivity {
         btnPlayStop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (url != null) {
 
-                if (!flagPlaying) {
-                    playRadio(url);
-                    btnPlayStop.setBackgroundResource(R.drawable.outline_pause_circle_24);
-                } else {
-                    pauseRadio();
-                    btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
+                    if (!flagPlaying) {
+                        playRadio(url);
+                        btnPlayStop.setBackgroundResource(R.drawable.outline_pause_circle_24);
+                    } else {
+                        pauseRadio();
+                        btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
+                    }
                 }
             }
         });
