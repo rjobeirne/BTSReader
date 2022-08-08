@@ -208,7 +208,7 @@ public class ListBookActivity extends AppCompatActivity {
     private void displayMessage(String message) {
 
 //        Snackbar.make(findViewById(R.id.libraryView),message,Snackbar.LENGTH_SHORT).show();
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();;
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void selectBook(int itemPosition) {

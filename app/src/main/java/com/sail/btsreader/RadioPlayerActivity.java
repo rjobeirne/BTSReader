@@ -58,6 +58,14 @@ public class RadioPlayerActivity extends AppCompatActivity {
         final ToggleButton btnPBS = findViewById(R.id.play_pbs);
         final ToggleButton btnPlayStop = findViewById(R.id.play_button);
 
+        ImageButton goBack = findViewById(R.id.go_back_button);
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
 
         btnMel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -8,6 +8,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -57,6 +59,24 @@ public class SettingsActivity extends AppCompatActivity {
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 }
             });
+
+            Preference button = findPreference(getString(R.string.restore_defaults));
+            button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    button.setIcon(R.drawable.restore_grey);
+                    restoreDefaultSettings();
+                    return false;
+                }
+            });
+        }
+
+        private void restoreDefaultSettings() {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.apply();
+            PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, true);
         }
 
         @Override
