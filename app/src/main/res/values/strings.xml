@@ -6,6 +6,8 @@
     <string name="listen_to_book">Listen to Book</string>
     <string name="close_menu">Return</string>
 
+    <string name="prefs_sleep_function">prefs_sleep_function</string>
+    <string name="sleep_function">Radio sleep function</string>
     <string name="prefs_listen_time">prefs_listen_time</string>
     <string name="listen_time_desc">Radio will cut-out after this time</string>
     <string name="listen_time">Radio sleep time (minutes)</string>

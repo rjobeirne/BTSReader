@@ -6,6 +6,9 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -24,14 +27,15 @@ import wseemann.media.FFmpegMediaMetadataRetriever;
 
 public class RadioPlayerActivity extends AppCompatActivity {
 
-    private MediaPlayer mediaPlayer;
     public ExoPlayer player;
     private String url, urlMel, urlRN, urlRRR, urlPBS;
-    Boolean flagPaused = true;
     Boolean flagPlaying = false;
     int sleepTimer = 45;  // minutes
     TextView mNowPlayingShowText;
     String nameShow;
+    Boolean sleepFunction;
+    float volume = 1;
+    ToggleButton btnPlayStop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
         final ToggleButton btnRN = findViewById(R.id.play_rn);
         final ToggleButton btnRRR = findViewById(R.id.play_rrr);
         final ToggleButton btnPBS = findViewById(R.id.play_pbs);
-        final ToggleButton btnPlayStop = findViewById(R.id.play_button);
+        btnPlayStop = findViewById(R.id.play_button);
 
         ImageButton goBack = findViewById(R.id.go_back_button);
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +157,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
         super.onResume();
         // Get settings from preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sleepFunction = sharedPreferences.getBoolean("prefs_sleep_function",Boolean.parseBoolean("TRUE"));
         sleepTimer = Integer.parseInt(sharedPreferences.getString("prefs_listen_time", "45"));
     }
 
@@ -181,8 +186,9 @@ public class RadioPlayerActivity extends AppCompatActivity {
             nameShow = null;
         }
         mNowPlayingShowText.setText(nameShow);
-        SleepTimer();
-
+        if (sleepFunction) {
+            SleepTimer();
+        }
     }
 
     public void pauseRadio() {
@@ -196,6 +202,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
         if(player!=null){
             player.stop();
             flagPlaying = false;
+            btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
         }
     }
 
@@ -204,7 +211,34 @@ public class RadioPlayerActivity extends AppCompatActivity {
              public void onTick(long millisUntilFinished) {
              }
              public void onFinish() {
-                 stopPlaying();
+                 new Handler(Looper.myLooper()).postDelayed(new Runnable() {
+                     @Override
+                     public void run() {
+                         volume = (float) 0.75;
+                         player.setVolume(volume);
+                         new Handler(Looper.myLooper()).postDelayed(new Runnable() {
+                             @Override
+                             public void run() {
+                                 volume = (float) 0.5;
+                                 new Handler(Looper.myLooper()).postDelayed(new Runnable() {
+                                     @Override
+                                     public void run() {
+                                         volume = (float) 0.25;
+                                         player.setVolume(volume);
+                                         new Handler(Looper.myLooper()).postDelayed(new Runnable() {
+                                             @Override
+                                             public void run() {
+                                                 stopPlaying();
+                                                 volume = 1;
+                                                 player.setVolume(volume);
+                                             }
+                                         }, 5000);
+                                     }
+                                 }, 2000);
+                             }
+                         }, 2000);
+                     }
+                 }, 2000);
              }
          }.start();
     }
