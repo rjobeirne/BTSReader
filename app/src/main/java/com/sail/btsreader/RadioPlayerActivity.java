@@ -34,7 +34,6 @@ public class RadioPlayerActivity extends AppCompatActivity {
     TextView mNowPlayingShowText;
     String nameShow;
     Boolean sleepFunction;
-    float volume = 1;
     ToggleButton btnPlayStop;
 
     @Override
@@ -161,7 +160,6 @@ public class RadioPlayerActivity extends AppCompatActivity {
         sleepTimer = Integer.parseInt(sharedPreferences.getString("prefs_listen_time", "45"));
     }
 
-
     public void playRadio(String url) {
         MediaItem mediaItem = new MediaItem.Builder()
                 .setUri(url)
@@ -211,28 +209,26 @@ public class RadioPlayerActivity extends AppCompatActivity {
              public void onTick(long millisUntilFinished) {
              }
              public void onFinish() {
+                 player.setVolume((float) 0.8);
                  new Handler(Looper.myLooper()).postDelayed(new Runnable() {
                      @Override
                      public void run() {
-                         volume = (float) 0.75;
-                         player.setVolume(volume);
+                         player.setVolume((float) 0.6);
                          new Handler(Looper.myLooper()).postDelayed(new Runnable() {
                              @Override
                              public void run() {
-                                 volume = (float) 0.5;
+                                player.setVolume((float) 0.4);
                                  new Handler(Looper.myLooper()).postDelayed(new Runnable() {
                                      @Override
                                      public void run() {
-                                         volume = (float) 0.25;
-                                         player.setVolume(volume);
+                                         player.setVolume((float) 0.2);
                                          new Handler(Looper.myLooper()).postDelayed(new Runnable() {
                                              @Override
                                              public void run() {
                                                  stopPlaying();
-                                                 volume = 1;
-                                                 player.setVolume(volume);
+                                                 player.setVolume((float) 1.0);
                                              }
-                                         }, 5000);
+                                         }, 3000);
                                      }
                                  }, 2000);
                              }
@@ -248,6 +244,4 @@ public class RadioPlayerActivity extends AppCompatActivity {
         stopPlaying();
         finish();
     }
-
-
 }
