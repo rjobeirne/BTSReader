@@ -55,10 +55,11 @@ public class RadioPlayerActivity extends AppCompatActivity {
         TextView mNowPlayingText = findViewById(R.id.now_playing_text);
         mNowPlayingShowText = findViewById(R.id.now_playing_text_show);
 
-        final ToggleButton btnMel = findViewById(R.id.play_mel);
-        final ToggleButton btnRN = findViewById(R.id.play_rn);
-        final ToggleButton btnRRR = findViewById(R.id.play_rrr);
-        final ToggleButton btnPBS = findViewById(R.id.play_pbs);
+        final ImageButton btnMel = findViewById(R.id.play_mel);
+        final ImageButton btnRN = findViewById(R.id.play_rn);
+        final ImageButton btnNews = findViewById(R.id.play_news);
+        final ImageButton btnRRR = findViewById(R.id.play_rrr);
+        final ImageButton btnPBS = findViewById(R.id.play_pbs);
         btnPlayStop = findViewById(R.id.play_button);
 
         ImageButton goBack = findViewById(R.id.go_back_button);
@@ -74,62 +75,57 @@ public class RadioPlayerActivity extends AppCompatActivity {
 
         btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
 
-        btnMel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnMel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+            public void onClick(View v) {
                 mNowPlayingLogo.setBackgroundResource(R.drawable.radio_melbourne);
                 mNowPlayingText.setText("ABC Radio Melbourne");
                 url = urlMel;
-                if (flagPlaying){
-                    stopPlaying();
-                }
-                btnPlayStop.setBackgroundResource(R.drawable.outline_pause_circle_24);
+                stopPlaying();
                 playRadio(url);
             }
         });
 
-        btnRN.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnRN.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+            public void onClick(View v) {
                 mNowPlayingLogo.setBackgroundResource(R.drawable.radio_national);
                 mNowPlayingText.setText("ABC Radio National");
                 url = urlRN;
-                if (flagPlaying){
-                    stopPlaying();
-                }
-                btnPlayStop.setBackgroundResource(R.drawable.outline_pause_circle_24);
+                stopPlaying();
                 playRadio(url);
             }
         });
 
-        btnRRR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnNews.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onClick(View v) {
+                mNowPlayingLogo.setBackgroundResource(R.drawable.radio_news);
+                mNowPlayingText.setText("ABC News Radio");
+                url = urlRN;
+                stopPlaying();
+                playRadio(url);
+            }
+        });
 
+        btnRRR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 mNowPlayingLogo.setBackgroundResource(R.drawable.rrr);
                 mNowPlayingText.setText("3RRR");
                 url = urlRRR;
-                if (flagPlaying){
-                    stopPlaying();
-                }
-                btnPlayStop.setBackgroundResource(R.drawable.outline_pause_circle_24);
+                stopPlaying();
                 playRadio(url);
             }
         });
 
-        btnPBS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnPBS.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+            public void onClick(View v) {
                 mNowPlayingLogo.setBackgroundResource(R.drawable.pbs);
                 mNowPlayingText.setText("3PBS");
                 url = urlPBS;
-                if (flagPlaying){
-                    stopPlaying();
-                }
-                btnPlayStop.setBackgroundResource(R.drawable.outline_pause_circle_24);
+                stopPlaying();
                 playRadio(url);
             }
         });
@@ -161,31 +157,34 @@ public class RadioPlayerActivity extends AppCompatActivity {
     }
 
     public void playRadio(String url) {
-        MediaItem mediaItem = new MediaItem.Builder()
-                .setUri(url)
-                .setLiveConfiguration(
-                    new MediaItem.LiveConfiguration.Builder()
-                        .setMaxPlaybackSpeed(1.02f)
-                        .build())
-                .build();
-        player.setMediaItem(mediaItem);
-        player.prepare();
-        player.play();
-        flagPlaying = true;
+        if (!flagPlaying) {
+            if (sleepFunction) {
+                SleepTimer();
+            }
+            btnPlayStop.setBackgroundResource(R.drawable.outline_pause_circle_24);
+            MediaItem mediaItem = new MediaItem.Builder()
+                    .setUri(url)
+                    .setLiveConfiguration(
+                            new MediaItem.LiveConfiguration.Builder()
+                                    .setMaxPlaybackSpeed(1.02f)
+                                    .build())
+                    .build();
+            player.setMediaItem(mediaItem);
+            player.prepare();
+            player.play();
+            flagPlaying = true;
 
-        // load data file
-        FFmpegMediaMetadataRetriever metaRetriever = new FFmpegMediaMetadataRetriever();
-        metaRetriever.setDataSource(url);
-        String icyMeta = metaRetriever.extractMetadata
-                (String.valueOf(FFmpegMediaMetadataRetriever.METADATA_KEY_ICY_METADATA));
-        if(icyMeta != null) {
-            nameShow = icyMeta.substring(icyMeta.indexOf("='") + 2,icyMeta.indexOf("';"));
-        } else {
-            nameShow = null;
-        }
-        mNowPlayingShowText.setText(nameShow);
-        if (sleepFunction) {
-            SleepTimer();
+            // load data file
+            FFmpegMediaMetadataRetriever metaRetriever = new FFmpegMediaMetadataRetriever();
+            metaRetriever.setDataSource(url);
+            String icyMeta = metaRetriever.extractMetadata
+                    (String.valueOf(FFmpegMediaMetadataRetriever.METADATA_KEY_ICY_METADATA));
+            if (icyMeta != null) {
+                nameShow = icyMeta.substring(icyMeta.indexOf("='") + 2, icyMeta.indexOf("';"));
+            } else {
+                nameShow = null;
+            }
+            mNowPlayingShowText.setText(nameShow);
         }
     }
 
