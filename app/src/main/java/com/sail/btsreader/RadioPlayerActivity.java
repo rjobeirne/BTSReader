@@ -23,6 +23,8 @@ import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory;
 
+import java.util.concurrent.TimeUnit;
+
 import wseemann.media.FFmpegMediaMetadataRetriever;
 
 public class RadioPlayerActivity extends AppCompatActivity {
@@ -32,9 +34,11 @@ public class RadioPlayerActivity extends AppCompatActivity {
     Boolean flagPlaying = false;
     int sleepTimer = 45;  // minutes
     TextView mNowPlayingShowText;
+    TextView mClockTextView;
     String nameShow;
     Boolean sleepFunction;
     ToggleButton btnPlayStop;
+    long timeRemain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
         View mNowPlayingLogo = findViewById(R.id.now_playing);
         TextView mNowPlayingText = findViewById(R.id.now_playing_text);
         mNowPlayingShowText = findViewById(R.id.now_playing_text_show);
+        mClockTextView = findViewById(R.id.sleep_time);
 
         final ImageButton btnMel = findViewById(R.id.play_mel);
         final ImageButton btnRN = findViewById(R.id.play_rn);
@@ -203,9 +208,20 @@ public class RadioPlayerActivity extends AppCompatActivity {
         }
     }
 
+    public void showClock(long timeRemain) {
+        String clockDisplay = String.format("%02d '",
+                TimeUnit.SECONDS.toMinutes(timeRemain) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.SECONDS.toHours(timeRemain)));
+
+        mClockTextView.setText(clockDisplay);
+    }
+
+
     public void SleepTimer() {
         new CountDownTimer(sleepTimer * 60 * 1000, 1000) {
              public void onTick(long millisUntilFinished) {
+                 timeRemain = (millisUntilFinished / 1000);
+                 showClock(timeRemain);
              }
              public void onFinish() {
                  player.setVolume((float) 0.8);
