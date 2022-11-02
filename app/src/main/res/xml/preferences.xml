@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <PreferenceCategory android:title="Boat">
+        <PreferenceCategory android:title="Settings">
+
+                <SwitchPreference
+                    android:defaultValue="true"
+                    android:key="@string/prefs_sleep_function"
+                    android:title="@string/sleep_function" />
 
                 <EditTextPreference
                     android:key="@string/prefs_listen_time"
