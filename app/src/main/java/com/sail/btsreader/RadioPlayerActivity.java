@@ -35,10 +35,12 @@ public class RadioPlayerActivity extends AppCompatActivity {
     int sleepTimer = 45;  // minutes
     TextView mNowPlayingShowText;
     TextView mClockTextView;
+    TextView resetClock;
     String nameShow;
     Boolean sleepFunction;
     ToggleButton btnPlayStop;
     long timeRemain;
+    CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
         final ImageButton btnRRR = findViewById(R.id.play_rrr);
         final ImageButton btnPBS = findViewById(R.id.play_pbs);
         btnPlayStop = findViewById(R.id.play_button);
+        resetClock = findViewById(R.id.sleep_time);
 
         ImageButton goBack = findViewById(R.id.go_back_button);
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +153,13 @@ public class RadioPlayerActivity extends AppCompatActivity {
                 }
             }
         });
+
+         resetClock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    ResetTimer();
+            }
+        });
     }
 
     @Override
@@ -190,13 +200,17 @@ public class RadioPlayerActivity extends AppCompatActivity {
                 nameShow = null;
             }
             mNowPlayingShowText.setText(nameShow);
+        } else {
+            countDownTimer.start();
+            player.play();
         }
     }
 
     public void pauseRadio() {
        if(player!=null) {
            player.pause();
-           flagPlaying = false;
+//           flagPlaying = false;
+           countDownTimer.cancel();
        }
     }
 
@@ -205,20 +219,27 @@ public class RadioPlayerActivity extends AppCompatActivity {
             player.stop();
             flagPlaying = false;
             btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
-        }
+       }
     }
 
     public void showClock(long timeRemain) {
-        String clockDisplay = String.format("%02d '",
-                TimeUnit.SECONDS.toMinutes(timeRemain) -
-                        TimeUnit.HOURS.toMinutes(TimeUnit.SECONDS.toHours(timeRemain)));
+        String clockDisplay = String.format("%02d '"
+                        + " %02d\""
+                , TimeUnit.SECONDS.toMinutes(timeRemain) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.SECONDS.toHours(timeRemain))
+                , TimeUnit.SECONDS.toSeconds(timeRemain) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(timeRemain))
+        );
 
-        mClockTextView.setText(clockDisplay);
+        if (flagPlaying) {
+            mClockTextView.setText(clockDisplay);
+        } else {
+            mClockTextView.setText("");
+        }
     }
 
-
     public void SleepTimer() {
-        new CountDownTimer(sleepTimer * 60 * 1000, 1000) {
+        countDownTimer = new CountDownTimer(sleepTimer * 60 * 1000, 1000) {
              public void onTick(long millisUntilFinished) {
                  timeRemain = (millisUntilFinished / 1000);
                  showClock(timeRemain);
@@ -252,6 +273,13 @@ public class RadioPlayerActivity extends AppCompatActivity {
                  }, 2000);
              }
          }.start();
+    }
+
+    public void ResetTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer.start();
+        }
     }
 
     @Override
