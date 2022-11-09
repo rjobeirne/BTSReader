@@ -99,6 +99,22 @@
         app:layout_constraintStart_toEndOf="@id/play_rn"
         app:layout_constraintTop_toTopOf="@id/play_rn" />
 
+    <ImageButton
+        android:id="@+id/play_music"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/sleep"
+        android:textAllCaps="false"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintBottom_toBottomOf="@id/play_news"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/play_news"
+        app:layout_constraintTop_toTopOf="@id/play_news" />
+
     <ImageView
         android:id="@+id/now_playing"
         android:layout_width="64dp"

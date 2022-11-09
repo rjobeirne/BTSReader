@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -30,7 +31,7 @@ import wseemann.media.FFmpegMediaMetadataRetriever;
 public class RadioPlayerActivity extends AppCompatActivity {
 
     public ExoPlayer player;
-    private String url, urlMel, urlRN, urlNews, urlRRR, urlPBS;
+    private String url, urlMel, urlRN, urlNews, urlRRR, urlPBS, urlMusic;
     Boolean flagPlaying = false;
     Boolean flagTimer = false;
     int sleepTimer = 45;  // minutes
@@ -54,6 +55,8 @@ public class RadioPlayerActivity extends AppCompatActivity {
         urlRRR = "http://realtime.rrr.org.au/p13";
         urlPBS = "https://playerservices.streamtheworld.com/api/livestream-redirect/3PBS_FMAAC.m3u8";
 
+        urlMusic = Environment.getExternalStorageDirectory().toString() + "/Music/music.mp3";
+
         player = new ExoPlayer.Builder(this)
         .setMediaSourceFactory(
             new DefaultMediaSourceFactory(this).setLiveTargetOffsetMs(5000))
@@ -69,6 +72,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
         final ImageButton btnNews = findViewById(R.id.play_news);
         final ImageButton btnRRR = findViewById(R.id.play_rrr);
         final ImageButton btnPBS = findViewById(R.id.play_pbs);
+        final ImageButton btnMusic = findViewById(R.id.play_music);
         btnPlayStop = findViewById(R.id.play_button);
         resetClock = findViewById(R.id.sleep_time);
 
@@ -135,6 +139,17 @@ public class RadioPlayerActivity extends AppCompatActivity {
                 mNowPlayingLogo.setBackgroundResource(R.drawable.pbs);
                 mNowPlayingText.setText("3PBS");
                 url = urlPBS;
+                stopPlaying();
+                playRadio(url);
+            }
+        });
+
+        btnMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNowPlayingLogo.setBackgroundResource(R.drawable.sleep);
+                mNowPlayingText.setText("Music");
+                url = urlMusic;
                 stopPlaying();
                 playRadio(url);
             }
