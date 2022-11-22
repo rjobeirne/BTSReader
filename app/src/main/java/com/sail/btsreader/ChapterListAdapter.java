@@ -32,6 +32,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
     public ArrayList<String> nameChapters = new ArrayList<String>();
     public ArrayList<Long> durations = new ArrayList<Long>();
     public String playStatus;
+    int chapterCount;
 
 
     public ChapterListAdapter(Context context, ArrayList<ChapterModel> chapterModelList) {
@@ -40,6 +41,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         mContext = context;
         chapterDataSet = chapterModelList;
         bookPath = chapterDataSet.get(1).getaBookDir();
+        chapterCount = chapterDataSet.size();
     }
 
     @NonNull
@@ -134,6 +136,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             intent.putExtra("cover", bookCover);
             intent.putExtra("previousStart", previousStart);
             intent.putExtra("previousLast", previousLast);
+            intent.putExtra("chapterCount", chapterCount);
             nContext.startActivity(intent);
         }
     }
