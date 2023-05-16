@@ -120,7 +120,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         @Override
         public void onClick(View v) {
 
-            int itemPosition = getAdapterPosition();
+            int itemPosition = getAbsoluteAdapterPosition();
 
             startTrack = itemPosition;
             playStatus = "Play";
