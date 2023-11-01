@@ -74,7 +74,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         previousStart = intent.getIntExtra("previousStart", 0);
         previousLast = intent.getIntExtra("previousLast", 0);
 
-        // Recalc position if ScrollToPosition is invoked in ListChapterAcitivity because it
+        // Recalc position if ScrollToPosition is invoked in ListChapterActivity because it
         // changes the list size for some strange reason.
         if (previousStart > 4) {
             listOffset = previousStart - 4;
