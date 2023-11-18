@@ -273,7 +273,7 @@ public class ListBookActivity extends AppCompatActivity {
         AlertDialog.Builder dialog = new AlertDialog.Builder(ListBookActivity.this);
         dialog.setCancelable(false);
         dialog.setTitle("Confirm Delete");
-        dialog.setMessage("Are you sure you want to delete\n\n   '" + bookName + "' ?\n");
+        dialog.setMessage("Are you sure you want to delete\n\n   ' " + bookName + " ' ?\n");
         dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
