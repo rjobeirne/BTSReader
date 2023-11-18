@@ -2,6 +2,7 @@ package com.sail.btsreader;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -192,7 +194,7 @@ public class ListBookActivity extends AppCompatActivity {
             return true;
 
             case 123:
-            deleteBook(bookNo);
+            confirmDeleteBook(bookNo);
             return true;
 
             case 124:
@@ -265,6 +267,27 @@ public class ListBookActivity extends AppCompatActivity {
               }
         }
         return( path.delete() );
+    }
+    public void confirmDeleteBook(int bookNo) {
+        String bookName = tempBookList.get(bookNo).getaTitle();
+        AlertDialog.Builder dialog = new AlertDialog.Builder(ListBookActivity.this);
+        dialog.setCancelable(false);
+        dialog.setTitle("Confirm Delete");
+        dialog.setMessage("Are you sure you want to delete\n\n   '" + bookName + "' ?\n");
+        dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                deleteBook(bookNo);
+            }
+        })
+                .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+        final AlertDialog alert = dialog.create();
+        alert.show();
     }
 
     @SuppressLint("ResourceType")
