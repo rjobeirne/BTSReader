@@ -1,17 +1,21 @@
 package com.sail.btsreader;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     String currentBook, bookDirectory;
     String currentCover;
     private ImageButton settingsBtn;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,10 +128,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void listenRadio() {
-        Log.e("Launch radio", "");
+//        Log.e("Launch radio", "");
+        if (isOnline()) {
         Intent i = new Intent(MainActivity.this, RadioPlayerActivity.class);
         startActivity(i);
-
+        } else {
+            try {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                Toast.makeText(this, "Check wifi is on", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void findCurrentBook() throws Exception {
@@ -192,4 +205,14 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+    public boolean isOnline() {
+        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+
+        if(netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()){
+            Toast.makeText(this, "No Internet connection!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+    return true;
+    }
 }

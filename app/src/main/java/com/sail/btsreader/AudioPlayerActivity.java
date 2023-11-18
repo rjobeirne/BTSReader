@@ -34,7 +34,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     SeekBar seekBar;
     String mTrack, bookTitle, playStatus, bookPath, coverPath;
     int index, maxIndex;
-    int itemPosition, itemPositionRelative;
+    int itemPosition, itemPositionRelative, chapterCount;
     int currentIndex = 0;
     ArrayList<String> playList;
     Timer timer;
@@ -70,10 +70,11 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         durations =(ArrayList<Long>) intent.getSerializableExtra("durations");
         playStatus = intent.getStringExtra("playStatus");
         coverPath = intent.getStringExtra("cover");
+        chapterCount = intent.getIntExtra("chapterCount", 0);
         previousStart = intent.getIntExtra("previousStart", 0);
         previousLast = intent.getIntExtra("previousLast", 0);
 
-        // Recalc position if ScrollToPosition is invoked in ListChapterAcitivity because it
+        // Recalc position if ScrollToPosition is invoked in ListChapterActivity because it
         // changes the list size for some strange reason.
         if (previousStart > 4) {
             listOffset = previousStart - 4;
@@ -217,7 +218,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
         while(playTime < minTime) {
             lastTrack = lastTrack + 1;
-            if(lastTrack < chapterList.size()) {
+            if(lastTrack < chapterList.size() && itemPosition < chapterCount - 1) {
                 playTime = playTime + durations.get(lastTrack);
                 playChapters = playChapters + 1;
                 playListPaths.add((String) chapterList.get(lastTrack));
