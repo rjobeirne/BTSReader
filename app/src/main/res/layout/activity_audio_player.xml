@@ -102,7 +102,7 @@
         android:layout_centerVertical="true"
         android:layout_marginBottom="8dp"
         android:background="@drawable/outline_fast_rewind_24"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintBottom_toTopOf="@+id/current_position"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -189,14 +189,14 @@
 <!--    Seek bar-->
     <TextView
         android:id="@+id/current_position"
-        android:layout_width="48dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="pos"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:text="pos"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/seekBar"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toTopOf="@id/seekBar" />
 
 
     <SeekBar
@@ -214,15 +214,15 @@
 
     <TextView
         android:id="@+id/chapter_duration"
-        android:layout_width="48dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="len"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:text="len"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/seekBar"
-        app:layout_constraintTop_toTopOf="@id/seekBar"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toTopOf="@id/seekBar" />
 
 <!--    <Button-->
 <!--        android:id="@+id/viewAllMedia"-->
