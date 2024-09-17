@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +42,7 @@ public class ListChapterActivity extends AppCompatActivity {
     int chptNo =-1;
 
     BookProgress readProgress;
+    private TextClock mClock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class ListChapterActivity extends AppCompatActivity {
         bookSubDirectory = intent.getStringExtra("bookPath");
         mBookTitleTextView = findViewById(R.id.book_title);
         mCoverView = findViewById(R.id.cover_background);
+        mClock = findViewById(R.id.time_text);
 
         readProgress = new BookProgress();
 
@@ -173,6 +176,7 @@ public class ListChapterActivity extends AppCompatActivity {
                 chapterModel.setPreviousStart(startPlace);
                 chapterModel.setPreviousLast(lastPlace);
                 tempChapterList.add(chapterModel);
+                mClock.setFormat24Hour("HH:mm");
 
                 // Sort the chapters chronologically
                 Collections.sort(tempChapterList, (obj1, obj2) -> obj1.getaChapter().compareToIgnoreCase(obj2.getaChapter()));

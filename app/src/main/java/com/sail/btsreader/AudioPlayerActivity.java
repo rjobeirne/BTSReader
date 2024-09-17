@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -48,6 +49,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     TextView mBookTitleTextView;
     int previousStart, previousLast, listOffset;
     File files;
+    private TextClock mClock;
 
     BookProgress updateProgress;
 
@@ -96,6 +98,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         Button forwardFiveSecs = findViewById(R.id.forward_5secs);
         mAudioName = findViewById(R.id.audioName);
         mBookTitleTextView = findViewById(R.id.book_title);
+        mClock = findViewById(R.id.time_text);
 
         updateProgress = new BookProgress();
 
@@ -242,6 +245,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
             mediaPlayer.prepare();
             String currentChapter = (String) chapterName.get(itemPositionRelative + index);
             mAudioName.setText(currentChapter);
+            mClock.setFormat24Hour("HH:mm");
 
         // Update chapter duration
             chapterTime = durations.get(itemPositionRelative);

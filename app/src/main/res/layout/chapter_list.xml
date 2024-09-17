@@ -34,6 +34,17 @@
         app:layout_constraintStart_toEndOf="@id/go_back_button"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextClock
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/chapter_list_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_title" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chapter_list_view"
         android:layout_width="match_parent"
@@ -41,6 +52,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/book_title" />
+        app:layout_constraintTop_toBottomOf="@+id/time_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
