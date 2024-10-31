@@ -1,17 +1,22 @@
 package com.sail.btsreader;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -71,6 +76,11 @@ public class ListChapterActivity extends AppCompatActivity {
         });
 
     }
+    @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.chapter_menu, menu);
+        return true;
+}
 
     public void getChapters(String mBookTitle) {
         context = ListChapterActivity.this;
@@ -196,6 +206,23 @@ public class ListChapterActivity extends AppCompatActivity {
         BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        int bookNo = item.getGroupId();
+        switch (item.getItemId())
+        {
+            case 121:
+//            resetChapter(bookNo);
+            customToast("Listen to book");
+            return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+
+    }
+
     /*
     Reset chapter progress when exiting player
      */
@@ -205,6 +232,18 @@ public class ListChapterActivity extends AppCompatActivity {
         finish();
         startActivity(getIntent());
         overridePendingTransition(0, 0);
+    }
+
+    @SuppressLint("ResourceType")
+    public void customToast(String message) {
+        Toast ToastMessage = Toast.makeText(this,message, Toast.LENGTH_SHORT);
+        View toastView = ToastMessage.getView();
+        toastView.setBackgroundResource(R.layout.toast_background_color);
+        TextView messageText = toastView.findViewById(android.R.id.message);
+        messageText.setTextColor(Color.parseColor("#000000"));
+        messageText.setBackgroundColor(Color.parseColor("#787878"));
+        ToastMessage.show();
+
     }
 
 }

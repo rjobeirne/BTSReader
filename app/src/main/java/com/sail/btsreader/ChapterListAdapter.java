@@ -1,10 +1,13 @@
 package com.sail.btsreader;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -33,12 +37,14 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
     public ArrayList<Long> durations = new ArrayList<Long>();
     public String playStatus;
     int chapterCount;
+    public ArrayList<BookModel> bookList;
 
 
     public ChapterListAdapter(Context context, ArrayList<ChapterModel> chapterModelList) {
 
         mInflater = LayoutInflater.from(context);
         mContext = context;
+//        bookList = bookModelList;
         chapterDataSet = chapterModelList;
         bookPath = chapterDataSet.get(1).getaBookDir();
         chapterCount = chapterDataSet.size();
@@ -100,7 +106,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         return chapterDataSet.size();
     }
 
-    public class ChapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ChapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
         Context nContext;
         ArrayList<ChapterModel> chapterList;
         public TextView mChapterNoTextView, mChapterDurationTextView;
@@ -138,6 +144,18 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             intent.putExtra("previousLast", previousLast);
             intent.putExtra("chapterCount", chapterCount);
             nContext.startActivity(intent);
+        }
+
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View vMenu, ContextMenu.ContextMenuInfo menuInfo) {
+
+            int itemPosition = getAdapterPosition();
+            String bookName = bookList.get(itemPosition).getaTitle();
+            menu.setHeaderTitle(bookName);
+            menu.add(itemPosition, 121, 0, "Reset chapter to here");
+            menu.add(itemPosition, 122, 1, "Return to chapter list");
+
         }
     }
 }
