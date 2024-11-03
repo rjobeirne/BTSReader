@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -111,7 +112,9 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         ArrayList<ChapterModel> chapterList;
         public TextView mChapterNoTextView, mChapterDurationTextView;
         public ImageView mAlreadyReadView;
+        CardView mChapterCardView;
 
+        @SuppressLint("WrongViewCast")
         public ChapterViewHolder(Context context, ArrayList<ChapterModel> chapterModelList, View v) {
             super(v);
             nContext = context;
@@ -119,6 +122,9 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             mChapterNoTextView = v.findViewById(R.id.chapter_number);
             mAlreadyReadView = v.findViewById(R.id.already_read);
             mChapterDurationTextView = v.findViewById(R.id.chapter_duration);
+            mChapterCardView = v.findViewById(R.id.mChapterCardView);
+            mChapterCardView.setOnClickListener(this);
+            mChapterCardView.setOnCreateContextMenuListener(this);
 
             v.setOnClickListener(this);
         }
@@ -151,8 +157,8 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         public void onCreateContextMenu(ContextMenu menu, View vMenu, ContextMenu.ContextMenuInfo menuInfo) {
 
             int itemPosition = getAdapterPosition();
-            String bookName = bookList.get(itemPosition).getaTitle();
-            menu.setHeaderTitle(bookName);
+//            String bookName = bookList.get(itemPosition).getaTitle();
+//            menu.setHeaderTitle(bookName);
             menu.add(itemPosition, 121, 0, "Reset chapter to here");
             menu.add(itemPosition, 122, 1, "Return to chapter list");
 

@@ -10,9 +10,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -45,8 +47,10 @@ public class ListChapterActivity extends AppCompatActivity {
     String previousPlace, trackNumber;
     int trackNo, startPlace, lastPlace;
     int chptNo =-1;
+    File dataFiles;
 
     BookProgress readProgress;
+    BookProgress updateProgress;
     private TextClock mClock;
 
     @Override
@@ -64,6 +68,7 @@ public class ListChapterActivity extends AppCompatActivity {
         mClock = findViewById(R.id.time_text);
 
         readProgress = new BookProgress();
+        updateProgress = new BookProgress();
 
         getChapters(bookTitle);
 
@@ -74,6 +79,12 @@ public class ListChapterActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        try {
+            dataFiles = getFilesDir().getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
     @Override
@@ -209,12 +220,12 @@ public class ListChapterActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        int bookNo = item.getGroupId();
+        int chapterNo = item.getGroupId();
         switch (item.getItemId())
         {
             case 121:
-//            resetChapter(bookNo);
-            customToast("Listen to book");
+            resetChapter(chapterNo);
+            customToast("Reset to " + chapterNo);
             return true;
 
             default:
@@ -232,6 +243,17 @@ public class ListChapterActivity extends AppCompatActivity {
         finish();
         startActivity(getIntent());
         overridePendingTransition(0, 0);
+    }
+
+    // Reset to selected chapter
+    private void resetChapter(int itemPosition) {
+
+//        String title = allBookDirectories.get(itemPosition).getaTitle();
+        customToast("Resetting ");
+        updateProgress.addBookProgress(dataFiles, bookTitle, itemPosition, itemPosition);
+
+        onRestart();
+
     }
 
     @SuppressLint("ResourceType")
