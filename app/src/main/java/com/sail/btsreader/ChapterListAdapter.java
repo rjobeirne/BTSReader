@@ -45,7 +45,6 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
 
         mInflater = LayoutInflater.from(context);
         mContext = context;
-//        bookList = bookModelList;
         chapterDataSet = chapterModelList;
         bookPath = chapterDataSet.get(1).getaBookDir();
         chapterCount = chapterDataSet.size();
@@ -81,11 +80,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
 
         chapterViewHolder.mChapterNoTextView.setText(mChapterName);
         chapterViewHolder.mChapterDurationTextView.setText(mChapterDuration);
-//        if (alreadyRead) {
-//            chapterViewHolder.mAlreadyReadView.setVisibility(View.VISIBLE);
-//        } else {
-            chapterViewHolder.mAlreadyReadView.setVisibility(View.INVISIBLE);
-//        }
+        chapterViewHolder.mAlreadyReadView.setVisibility(View.INVISIBLE);
 
         if(possiblyRead) {
             chapterViewHolder.mAlreadyReadView.setVisibility(View.VISIBLE);
@@ -99,7 +94,6 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         paths.add(path);
         nameChapters.add(mChapterName);
         durations.add(duration);
-
     }
 
     @Override
@@ -152,16 +146,12 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             nContext.startActivity(intent);
         }
 
-
         @Override
         public void onCreateContextMenu(ContextMenu menu, View vMenu, ContextMenu.ContextMenuInfo menuInfo) {
 
             int itemPosition = getAdapterPosition();
-//            String bookName = bookList.get(itemPosition).getaTitle();
-//            menu.setHeaderTitle(bookName);
             menu.add(itemPosition, 121, 0, "Reset chapter to here");
             menu.add(itemPosition, 122, 1, "Return to chapter list");
-
         }
     }
 }

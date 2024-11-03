@@ -85,13 +85,7 @@ public class ListChapterActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-    @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.chapter_menu, menu);
-        return true;
-}
 
     public void getChapters(String mBookTitle) {
         context = ListChapterActivity.this;
@@ -231,7 +225,6 @@ public class ListChapterActivity extends AppCompatActivity {
             default:
                 return super.onContextItemSelected(item);
         }
-
     }
 
     /*
@@ -248,12 +241,9 @@ public class ListChapterActivity extends AppCompatActivity {
     // Reset to selected chapter
     private void resetChapter(int itemPosition) {
 
-//        String title = allBookDirectories.get(itemPosition).getaTitle();
         customToast("Resetting ");
         updateProgress.addBookProgress(dataFiles, bookTitle, itemPosition, itemPosition);
-
         onRestart();
-
     }
 
     @SuppressLint("ResourceType")
@@ -265,7 +255,5 @@ public class ListChapterActivity extends AppCompatActivity {
         messageText.setTextColor(Color.parseColor("#000000"));
         messageText.setBackgroundColor(Color.parseColor("#787878"));
         ToastMessage.show();
-
     }
-
 }
