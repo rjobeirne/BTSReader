@@ -205,7 +205,6 @@ public class ListChapterActivity extends AppCompatActivity {
         {
             case 121:
             resetChapter(chapterNo);
-//            customToast("Reset to " + nameChapter);
             return true;
 
             default:
@@ -227,7 +226,7 @@ public class ListChapterActivity extends AppCompatActivity {
     // Reset to selected chapter
     private void resetChapter(int itemPosition) {
 
-        customToast("Resetting ");
+        customToast("Resetting to " + chapterListAdapter.newChapter);
         updateProgress.addBookProgress(dataFiles, bookTitle, itemPosition, itemPosition);
         onRestart();
     }

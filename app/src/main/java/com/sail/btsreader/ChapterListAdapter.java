@@ -33,7 +33,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
     public ArrayList<String> paths = new ArrayList<String>();
     public ArrayList<String> nameChapters = new ArrayList<String>();
     public ArrayList<Long> durations = new ArrayList<Long>();
-    public String playStatus;
+    public String playStatus, newChapter;
     int chapterCount;
     public ArrayList<BookModel> bookList;
 
@@ -153,6 +153,8 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         public void onCreateContextMenu(ContextMenu menu, View vMenu, ContextMenu.ContextMenuInfo menuInfo) {
 
             int itemPosition = getAdapterPosition();
+            newChapter = chapterDataSet.get(itemPosition).getaChapter();
+            newChapter = newChapter.substring(0, newChapter.indexOf(".")); // remove file extension
             menu.add(itemPosition, 121, 0, "Reset chapter to here");
             menu.add(itemPosition, 122, 1, "Return to chapter list");
         }
