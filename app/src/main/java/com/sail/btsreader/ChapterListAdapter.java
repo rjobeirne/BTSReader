@@ -3,21 +3,18 @@ package com.sail.btsreader;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.app.AppCompatActivity;
+
 
 import java.util.ArrayList;
 
@@ -129,21 +126,27 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             int itemPosition = getAbsoluteAdapterPosition();
 
             startTrack = itemPosition;
-            playStatus = "Play";
+            if (itemPosition < previousStart) {
+                String message = "Long press and reset to desired chapter";
+                Toast toastMessage = Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_LONG);
+                toastMessage.show();
+            } else {
+                playStatus = "Play";
 
-            Intent intent = new Intent(nContext, AudioPlayerActivity.class);
-            intent.putExtra("bookTitle", bookTitle);
-            intent.putExtra("bookPath", bookPath);
-            intent.putExtra("position", itemPosition);
-            intent.putStringArrayListExtra("paths", paths);
-            intent.putStringArrayListExtra("chapterName", nameChapters);
-            intent.putExtra("durations", durations);
-            intent.putExtra("playStatus", playStatus);
-            intent.putExtra("cover", bookCover);
-            intent.putExtra("previousStart", previousStart);
-            intent.putExtra("previousLast", previousLast);
-            intent.putExtra("chapterCount", chapterCount);
-            nContext.startActivity(intent);
+                Intent intent = new Intent(nContext, AudioPlayerActivity.class);
+                intent.putExtra("bookTitle", bookTitle);
+                intent.putExtra("bookPath", bookPath);
+                intent.putExtra("position", itemPosition);
+                intent.putStringArrayListExtra("paths", paths);
+                intent.putStringArrayListExtra("chapterName", nameChapters);
+                intent.putExtra("durations", durations);
+                intent.putExtra("playStatus", playStatus);
+                intent.putExtra("cover", bookCover);
+                intent.putExtra("previousStart", previousStart);
+                intent.putExtra("previousLast", previousLast);
+                intent.putExtra("chapterCount", chapterCount);
+                nContext.startActivity(intent);
+            }
         }
 
         @Override

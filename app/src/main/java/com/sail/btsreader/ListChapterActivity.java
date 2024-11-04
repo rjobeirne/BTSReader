@@ -3,18 +3,12 @@ package com.sail.btsreader;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -200,15 +194,7 @@ public class ListChapterActivity extends AppCompatActivity {
                 metaRetriever.release();
             }
         }
-        makeCover(coverPath);
-
         return tempChapterList;
-    }
-
-    public void makeCover(String coverPath) {
-
-        Bitmap bitmap = BitmapFactory.decodeFile(coverPath);
-        BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
     }
 
     @Override
@@ -219,7 +205,7 @@ public class ListChapterActivity extends AppCompatActivity {
         {
             case 121:
             resetChapter(chapterNo);
-            customToast("Reset to " + chapterNo);
+//            customToast("Reset to " + nameChapter);
             return true;
 
             default:
