@@ -1,17 +1,18 @@
 package com.sail.btsreader;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,8 +41,10 @@ public class ListChapterActivity extends AppCompatActivity {
     String previousPlace, trackNumber;
     int trackNo, startPlace, lastPlace;
     int chptNo =-1;
+    File dataFiles;
 
     BookProgress readProgress;
+    BookProgress updateProgress;
     private TextClock mClock;
 
     @Override
@@ -59,6 +62,7 @@ public class ListChapterActivity extends AppCompatActivity {
         mClock = findViewById(R.id.time_text);
 
         readProgress = new BookProgress();
+        updateProgress = new BookProgress();
 
         getChapters(bookTitle);
 
@@ -70,6 +74,11 @@ public class ListChapterActivity extends AppCompatActivity {
             }
         });
 
+        try {
+            dataFiles = getFilesDir().getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void getChapters(String mBookTitle) {
@@ -185,15 +194,22 @@ public class ListChapterActivity extends AppCompatActivity {
                 metaRetriever.release();
             }
         }
-        makeCover(coverPath);
-
         return tempChapterList;
     }
 
-    public void makeCover(String coverPath) {
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
 
-        Bitmap bitmap = BitmapFactory.decodeFile(coverPath);
-        BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
+        int chapterNo = item.getGroupId();
+        switch (item.getItemId())
+        {
+            case 121:
+            resetChapter(chapterNo);
+            return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     /*
@@ -207,4 +223,22 @@ public class ListChapterActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
+    // Reset to selected chapter
+    private void resetChapter(int itemPosition) {
+
+        customToast("Resetting to " + chapterListAdapter.newChapter);
+        updateProgress.addBookProgress(dataFiles, bookTitle, itemPosition, itemPosition);
+        onRestart();
+    }
+
+    @SuppressLint("ResourceType")
+    public void customToast(String message) {
+        Toast ToastMessage = Toast.makeText(this,message, Toast.LENGTH_SHORT);
+        View toastView = ToastMessage.getView();
+        toastView.setBackgroundResource(R.layout.toast_background_color);
+        TextView messageText = toastView.findViewById(android.R.id.message);
+        messageText.setTextColor(Color.parseColor("#000000"));
+        messageText.setBackgroundColor(Color.parseColor("#787878"));
+        ToastMessage.show();
+    }
 }

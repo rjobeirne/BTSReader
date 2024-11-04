@@ -1,18 +1,20 @@
 package com.sail.btsreader;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import java.util.ArrayList;
 
@@ -31,8 +33,9 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
     public ArrayList<String> paths = new ArrayList<String>();
     public ArrayList<String> nameChapters = new ArrayList<String>();
     public ArrayList<Long> durations = new ArrayList<Long>();
-    public String playStatus;
+    public String playStatus, newChapter;
     int chapterCount;
+    public ArrayList<BookModel> bookList;
 
 
     public ChapterListAdapter(Context context, ArrayList<ChapterModel> chapterModelList) {
@@ -74,11 +77,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
 
         chapterViewHolder.mChapterNoTextView.setText(mChapterName);
         chapterViewHolder.mChapterDurationTextView.setText(mChapterDuration);
-//        if (alreadyRead) {
-//            chapterViewHolder.mAlreadyReadView.setVisibility(View.VISIBLE);
-//        } else {
-            chapterViewHolder.mAlreadyReadView.setVisibility(View.INVISIBLE);
-//        }
+        chapterViewHolder.mAlreadyReadView.setVisibility(View.INVISIBLE);
 
         if(possiblyRead) {
             chapterViewHolder.mAlreadyReadView.setVisibility(View.VISIBLE);
@@ -92,7 +91,6 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         paths.add(path);
         nameChapters.add(mChapterName);
         durations.add(duration);
-
     }
 
     @Override
@@ -100,12 +98,14 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
         return chapterDataSet.size();
     }
 
-    public class ChapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ChapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
         Context nContext;
         ArrayList<ChapterModel> chapterList;
         public TextView mChapterNoTextView, mChapterDurationTextView;
         public ImageView mAlreadyReadView;
+        CardView mChapterCardView;
 
+        @SuppressLint("WrongViewCast")
         public ChapterViewHolder(Context context, ArrayList<ChapterModel> chapterModelList, View v) {
             super(v);
             nContext = context;
@@ -113,6 +113,9 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             mChapterNoTextView = v.findViewById(R.id.chapter_number);
             mAlreadyReadView = v.findViewById(R.id.already_read);
             mChapterDurationTextView = v.findViewById(R.id.chapter_duration);
+            mChapterCardView = v.findViewById(R.id.mChapterCardView);
+            mChapterCardView.setOnClickListener(this);
+            mChapterCardView.setOnCreateContextMenuListener(this);
 
             v.setOnClickListener(this);
         }
@@ -123,21 +126,37 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             int itemPosition = getAbsoluteAdapterPosition();
 
             startTrack = itemPosition;
-            playStatus = "Play";
+            if (itemPosition < previousStart) {
+                String message = "Long press and reset to desired chapter";
+                Toast toastMessage = Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_LONG);
+                toastMessage.show();
+            } else {
+                playStatus = "Play";
 
-            Intent intent = new Intent(nContext, AudioPlayerActivity.class);
-            intent.putExtra("bookTitle", bookTitle);
-            intent.putExtra("bookPath", bookPath);
-            intent.putExtra("position", itemPosition);
-            intent.putStringArrayListExtra("paths", paths);
-            intent.putStringArrayListExtra("chapterName", nameChapters);
-            intent.putExtra("durations", durations);
-            intent.putExtra("playStatus", playStatus);
-            intent.putExtra("cover", bookCover);
-            intent.putExtra("previousStart", previousStart);
-            intent.putExtra("previousLast", previousLast);
-            intent.putExtra("chapterCount", chapterCount);
-            nContext.startActivity(intent);
+                Intent intent = new Intent(nContext, AudioPlayerActivity.class);
+                intent.putExtra("bookTitle", bookTitle);
+                intent.putExtra("bookPath", bookPath);
+                intent.putExtra("position", itemPosition);
+                intent.putStringArrayListExtra("paths", paths);
+                intent.putStringArrayListExtra("chapterName", nameChapters);
+                intent.putExtra("durations", durations);
+                intent.putExtra("playStatus", playStatus);
+                intent.putExtra("cover", bookCover);
+                intent.putExtra("previousStart", previousStart);
+                intent.putExtra("previousLast", previousLast);
+                intent.putExtra("chapterCount", chapterCount);
+                nContext.startActivity(intent);
+            }
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View vMenu, ContextMenu.ContextMenuInfo menuInfo) {
+
+            int itemPosition = getAdapterPosition();
+            newChapter = chapterDataSet.get(itemPosition).getaChapter();
+            newChapter = newChapter.substring(0, newChapter.indexOf(".")); // remove file extension
+            menu.add(itemPosition, 121, 0, "Reset chapter to here");
+            menu.add(itemPosition, 122, 1, "Return to chapter list");
         }
     }
 }
