@@ -1,9 +1,11 @@
 package com.sail.btsreader;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -33,6 +35,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
     public ExoPlayer player;
     private String url, urlMel, urlRN, urlNews, urlRRR, urlPBS, urlMusic;
     Boolean flagPlaying = false;
+    Boolean flagWifiLock = false;
     Boolean flagTimer = false;
     int sleepTimer = 45;  // minutes
     TextView mNowPlayingShowText;
@@ -43,11 +46,15 @@ public class RadioPlayerActivity extends AppCompatActivity {
     ToggleButton btnPlayStop;
     long timeRemain;
     CountDownTimer countDownTimer;
+    WifiManager.WifiLock wifiLock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.radio_control);
+
+        WifiManager wMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiLock = wMgr.createWifiLock(WifiManager.WIFI_MODE_FULL, "MyWifiLock");
 
         urlMel = "http://live-radio01.mediahubaustralia.com/3LRW/mp3";
         urlRN = "http://live-radio01.mediahubaustralia.com/2RNW/mp3";
@@ -188,6 +195,8 @@ public class RadioPlayerActivity extends AppCompatActivity {
     }
 
     public void playRadio(String url) {
+        wifiLock.acquire();
+        flagWifiLock = true;
         if (!flagPlaying) {
             if (sleepFunction && !flagTimer) {
                 SleepTimer();
@@ -233,8 +242,9 @@ public class RadioPlayerActivity extends AppCompatActivity {
     }
 
     public void stopPlaying() {
-        if(player!=null){
+        if(player!=null && flagWifiLock){
             player.stop();
+            wifiLock.release();
             flagPlaying = false;
             btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
        }
