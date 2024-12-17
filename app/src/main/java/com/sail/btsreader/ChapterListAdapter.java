@@ -126,7 +126,7 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
             int itemPosition = getAbsoluteAdapterPosition();
 
             startTrack = itemPosition;
-            if (itemPosition < previousStart) {
+            if (itemPosition < previousStart - 3) {
                 String message = "Long press and reset to desired chapter";
                 Toast toastMessage = Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_LONG);
                 toastMessage.show();
