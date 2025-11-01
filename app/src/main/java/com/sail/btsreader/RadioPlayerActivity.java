@@ -56,8 +56,8 @@ public class RadioPlayerActivity extends AppCompatActivity {
         WifiManager wMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wifiLock = wMgr.createWifiLock(WifiManager.WIFI_MODE_FULL, "MyWifiLock");
 
-        urlMel = "http://live-radio01.mediahubaustralia.com/3LRW/mp3";
-        urlRN = "http://live-radio01.mediahubaustralia.com/2RNW/mp3";
+        urlMel = "https://mediaserviceslive.akamaized.net/hls/live/2038300/localmelbourne/index.m3u8";
+        urlRN =  "https://mediaserviceslive.akamaized.net/hls/live/2038327/rnvic/index.m3u8";
         urlNews ="http://live-radio01.mediahubaustralia.com/PBW/mp3";
         urlRRR = "http://realtime.rrr.org.au/p13";
         urlPBS = "https://playerservices.streamtheworld.com/api/livestream-redirect/3PBS_FMAAC.m3u8";
