@@ -55,6 +55,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
 
         WifiManager wMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wifiLock = wMgr.createWifiLock(WifiManager.WIFI_MODE_FULL, "MyWifiLock");
+        wifiLock.acquire();
 
         urlMel = "https://mediaserviceslive.akamaized.net/hls/live/2038300/localmelbourne/index.m3u8";
         urlRN =  "https://mediaserviceslive.akamaized.net/hls/live/2038327/rnvic/index.m3u8";
@@ -90,6 +91,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
                 if (flagPlaying){
                     stopPlaying();
                 }
+                wifiLock.release();
                 finish();
             }
         });
@@ -195,7 +197,6 @@ public class RadioPlayerActivity extends AppCompatActivity {
     }
 
     public void playRadio(String url) {
-        wifiLock.acquire();
         flagWifiLock = true;
         if (!flagPlaying) {
             if (sleepFunction && !flagTimer) {
@@ -244,7 +245,6 @@ public class RadioPlayerActivity extends AppCompatActivity {
     public void stopPlaying() {
         if(player!=null && flagWifiLock){
             player.stop();
-            wifiLock.release();
             flagPlaying = false;
             btnPlayStop.setBackgroundResource(R.drawable.outline_play_circle_24);
        }
