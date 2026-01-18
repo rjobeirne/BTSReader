@@ -59,7 +59,7 @@ public class RadioPlayerActivity extends AppCompatActivity {
 
         urlMel = "https://mediaserviceslive.akamaized.net/hls/live/2038300/localmelbourne/masterhq.m3u8";
         urlRN =  "https://mediaserviceslive.akamaized.net/hls/live/2038318/rnnsw/index.m3u8";
-        urlNews ="https://mediaserviceslive.akamaized.net/hls/live/2038300/localmelbourne/masterhq.m3u8";
+        urlNews ="https://mediaserviceslive.akamaized.net/hls/live/2109425/newsradio/v0-221.m3u8";
         urlRRR = "http://realtime.rrr.org.au/p13";
         urlPBS = "https://playerservices.streamtheworld.com/api/livestream-redirect/3PBS_FMAAC.m3u8";
 
