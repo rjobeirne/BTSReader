@@ -19,7 +19,8 @@
         <!--usesClearTraffic declaration required for http connection-->
 
         <activity
-            android:name="com.sail.btsreader.MainActivity">
+            android:name="com.sail.btsreader.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,12 +29,14 @@
 
         <activity
             android:name="com.sail.btsreader.ListBookActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name="com.sail.btsreader.ListChapterActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -41,7 +44,8 @@
 
         <activity
             android:name="com.sail.btsreader.AudioPlayerActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -49,14 +53,16 @@
 
         <activity
             android:name="com.sail.btsreader.RadioPlayerActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
         <activity android:name="com.sail.btsreader.SettingsActivity"
-            android:theme="@style/SettingsTheme.NoActionBar">
+            android:theme="@style/SettingsTheme.NoActionBar"
+            android:screenOrientation="portrait">
         </activity>
 
     </application>
