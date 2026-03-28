@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Button listBooksBtn = findViewById(R.id.list_books);
+        Button listMeditationBtn = findViewById(R.id.list_meditation);
         Button continueListeningBtn = findViewById(R.id.continue_listen);
         Button listenRadioBtn = findViewById(R.id.play_radio);
         View imageViewCover = findViewById(R.id.current_cover);
@@ -77,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listMeditationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ListMeditationActivity.class));
+            }
+        });
 
         listBooksBtn.setOnClickListener(new View.OnClickListener() {
             @Override

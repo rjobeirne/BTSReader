@@ -34,6 +34,12 @@
         </activity>
 
         <activity
+            android:name="com.sail.btsreader.ListMeditationActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
             android:name="com.sail.btsreader.ListChapterActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
