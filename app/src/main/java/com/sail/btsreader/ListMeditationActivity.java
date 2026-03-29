@@ -19,7 +19,7 @@ import java.util.Collections;
 public class ListMeditationActivity extends AppCompatActivity {
 
     RecyclerView listMeditationView;
-    MeditationListAdaptor meditationListAdapter;
+    MeditationListAdapter meditationListAdapter;
     Context context;
     String nameDirectoryFiles, coverPath, author;
     long dur, secs, mins;
@@ -61,7 +61,7 @@ public class ListMeditationActivity extends AppCompatActivity {
         listMeditationView = findViewById(R.id.book_list_view);
         allMeditationDirectories = getMeditationList(context);
 
-        meditationListAdapter = new MeditationListAdaptor(context, allMeditationDirectories);
+        meditationListAdapter = new MeditationListAdapter(context, allMeditationDirectories);
         listMeditationView.setLayoutManager(new LinearLayoutManager(context));
         listMeditationView.setAdapter(meditationListAdapter);
     }
