@@ -1,6 +1,7 @@
 package com.sail.btsreader;
 
 import android.content.Context;
+import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ListMeditationActivity extends AppCompatActivity {
 
@@ -20,6 +22,8 @@ public class ListMeditationActivity extends AppCompatActivity {
     MeditationListAdaptor meditationListAdapter;
     Context context;
     String nameDirectoryFiles, coverPath, author;
+    long dur, secs, mins;
+    String seconds, minutes;
 
     String bookDirectory, meditationTitle;
     File dataFiles;
@@ -31,7 +35,7 @@ public class ListMeditationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.book_list);
+        setContentView(R.layout.meditation_list);
 
         ImageButton goBack = findViewById(R.id.go_back_button);
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -94,40 +98,40 @@ public class ListMeditationActivity extends AppCompatActivity {
             String duration;
             String out;
             String chapterPath = bookDirectory + "/" + meditationTitle;
-            ChapterModel chapterModel = new ChapterModel();
+            MeditationModel meditationModel = new MeditationModel();
             // load data file
-//            MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
+            MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
 
             if (meditationTitle.endsWith(".mp3")) {
 
 //                chptNo = chptNo + 1;
-//
-//                metaRetriever.setDataSource(chapterPath);
-//
-//                // get mp3 info
-//                duration = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-//                dur = Long.parseLong(duration);
-//
+
+                metaRetriever.setDataSource(chapterPath);
+
+                // get mp3 info
+                duration = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                dur = Long.parseLong(duration);
+
 //                trackNumber = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER);
 //                trackNo = Integer.valueOf(trackNumber);
-//
-//                // convert duration to minute:seconds
-//                secs = (dur % 60000) / 1000;
-//                mins = dur / 60000;
-//
-//                if ( secs < 10 ) {
-//                    seconds = "0" + String.valueOf(secs);
-//                } else {
-//                    seconds = String.valueOf(secs);
-//                }
-//
-//                if ( mins < 10 ) {
-//                    minutes = "0" + String.valueOf(mins);
-//                } else {
-//                    minutes = String.valueOf(mins);
-//                }
-//                out = minutes + ":" + seconds;
-//
+
+                // convert duration to minute:seconds
+                secs = (dur % 60000) / 1000;
+                mins = dur / 60000;
+
+                if ( secs < 10 ) {
+                    seconds = "0" + String.valueOf(secs);
+                } else {
+                    seconds = String.valueOf(secs);
+                }
+
+                if ( mins < 10 ) {
+                    minutes = "0" + String.valueOf(mins);
+                } else {
+                    minutes = String.valueOf(mins);
+                }
+                out = minutes + ":" + seconds;
+
 //                if(trackNo <= lastPlace + 1) {
 //                    possiblyRead = true;
 //                } else {
@@ -140,23 +144,23 @@ public class ListMeditationActivity extends AppCompatActivity {
 //                    alreadyRead = false;
 //                }
 
-                chapterModel.setaFileNumber(i);
-//                chapterModel.setaTitle(bookTitle);
+                meditationModel.setaFileNumber(i);
+                meditationModel.setaTitle(meditationTitle);
 //                chapterModel.setaBookDir(bookSubDirectory);
 //                chapterModel.setaChapter(nameChapter);
 //                chapterModel.setaDuration(out);
-//                chapterModel.setaRawDuration(dur);
+                meditationModel.setaRawDuration(dur);
 //                chapterModel.setaPath(chapterPath);
 //                chapterModel.setaCover(coverPath);
 //                chapterModel.setRead(alreadyRead);
 //                chapterModel.setPossiblyRead(possiblyRead);
 //                chapterModel.setPreviousStart(startPlace);
 //                chapterModel.setPreviousLast(lastPlace);
-//                tempChapterList.add(chapterModel);
+                tempMeditationList.add(meditationModel);
 //                mClock.setFormat24Hour("HH:mm");
 
                 // Sort the chapters chronologically
-//                Collections.sort(tempMeditationList, (obj1, obj2) -> obj1.getaChapter().compareToIgnoreCase(obj2.getaChapter()));
+//                Collections.sort(tempMeditationList, (obj1, obj2) -> obj1.getaMeditation().compareToIgnoreCase(obj2.getaMeditation()));
 
 //                 close object
 //                metaRetriever.release();

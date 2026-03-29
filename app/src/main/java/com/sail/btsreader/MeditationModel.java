@@ -4,6 +4,8 @@ public class MeditationModel {
 
     Integer aFileNumber;
     String aMeditation;
+    String aDuration;
+    Long aRawDuration;
     String aPath, aBookDir;
     String aTitle, aAuthor;
 
@@ -14,6 +16,14 @@ public class MeditationModel {
     public String getaBookDir() { return aBookDir; }
 
     public void setaBookDir(String aBookDir) { this.aBookDir = aBookDir; }
+
+    public Long getaRawDuration() { return aRawDuration; }
+
+    public void setaRawDuration(Long aRawDuration) { this.aRawDuration = aRawDuration; }
+
+    public String getaDuration() { return aDuration; }
+
+    public void setaDuration(String aDuration) { this.aDuration = aDuration; }
 
     public Integer getaFileNumber() { return aFileNumber; }
 

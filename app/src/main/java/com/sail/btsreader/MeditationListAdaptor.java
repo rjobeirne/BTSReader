@@ -1,5 +1,6 @@
 package com.sail.btsreader;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.ContextMenu;
@@ -17,10 +18,12 @@ import java.util.ArrayList;
 public class MeditationListAdaptor extends RecyclerView.Adapter<MeditationListAdaptor.MeditationViewHolder> {
 
     private ArrayList<MeditationModel> meditationDataSet;
+    public static ArrayList<Long> durations = new ArrayList<Long>();
     private LayoutInflater mInflater;
     Context mContext;
-    public String mBookTitle, mBookAuthor;
-    public String bookName;
+    Long duration;
+    public String mBookTitle, mMeditationDuration;
+    public static String meditationName;
 
     public MeditationListAdaptor(Context context, ArrayList<MeditationModel> meditationModelList) {
 
@@ -44,11 +47,14 @@ public class MeditationListAdaptor extends RecyclerView.Adapter<MeditationListAd
     public void onBindViewHolder(@NonNull MeditationViewHolder bookViewHolder, int i) {
 
         mBookTitle = meditationDataSet.get(i).getaTitle();
+        meditationName = meditationDataSet.get(i).getaTitle();
+        mMeditationDuration = meditationDataSet.get(i).getaDuration();
 //        mBookAuthor = meditationDataSet.get(i).getaAuthor();
 
 
         bookViewHolder.mTextView.setText(mBookTitle);
-        bookViewHolder.mAuthorView.setText(mBookAuthor);
+//        bookViewHolder.mAuthorView.setText(mBookAuthor);
+        durations.add(duration);
     }
 
     @Override
@@ -58,18 +64,18 @@ public class MeditationListAdaptor extends RecyclerView.Adapter<MeditationListAd
 
     public static class MeditationViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnCreateContextMenuListener {
-
         Context nContext;
         public ArrayList<MeditationModel> meditationList;
         public TextView mTextView, mAuthorView;
         CardView mMeditationCardView;
 
+        @SuppressLint("WrongViewCast")
         public MeditationViewHolder(Context context, ArrayList<MeditationModel> meditationModelList, View v) {
             super(v);
             nContext = context;
             meditationList = meditationModelList;
             mTextView = v.findViewById(R.id.book_name);
-            mAuthorView = v.findViewById(R.id.book_author);
+//            mAuthorView = v.findViewById(R.id.book_author);
             mMeditationCardView = v.findViewById(R.id.mMeditationCardView);
             mMeditationCardView.setOnClickListener(this);
             mMeditationCardView.setOnCreateContextMenuListener(this);
@@ -80,15 +86,39 @@ public class MeditationListAdaptor extends RecyclerView.Adapter<MeditationListAd
         public void onClick(View v) {
             // opening a new intent for chapter activity
 
-            int itemPosition = getAdapterPosition();
+            String playStatus;
+            int itemPosition = getAbsoluteAdapterPosition();
 
-            String bookName = meditationList.get(itemPosition).getaTitle();
+//            startTrack = itemPosition;
+//            if (itemPosition < previousStart - 3) {
+//                String message = "Long press and reset to desired chapter";
+//                Toast toastMessage = Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_LONG);
+//                toastMessage.show();
+//            } else {
+                playStatus = "Play";
+
+                Intent intent = new Intent(nContext, AudioPlayerActivity.class);
+                intent.putExtra("meditationTitle", meditationName);
+//                intent.putExtra("bookPath", bookPath);
+//                intent.putExtra("position", itemPosition);
+//                intent.putStringArrayListExtra("paths", paths);
+//                intent.putStringArrayListExtra("chapterName", nameChapters);
+                intent.putExtra("durations", durations);
+                intent.putExtra("playStatus", playStatus);
+//                intent.putExtra("cover", bookCover);
+//                intent.putExtra("previousStart", previousStart);
+//                intent.putExtra("previousLast", previousLast);
+//                intent.putExtra("chapterCount", chapterCount);
+                nContext.startActivity(intent);
+//            }
+
+//            String bookName = meditationList.get(itemPosition).getaTitle();
 //            String bookCover = meditationList.get(itemPosition).getaCover();
 //            String bookAuthor = meditationList.get(itemPosition).getaAuthor();
 //            String bookDirectory = meditationList.get(itemPosition).getaPath();
 
-            Intent intent = new Intent(nContext, ListChapterActivity.class);
-            intent.putExtra("bookName", bookName);
+//            Intent intent = new Intent(nContext, ListMeditationActivity.class);
+//            intent.putExtra("bookName", bookName);
 //            intent.putExtra("coverPath", bookCover);
 //            intent.putExtra("bookPath", bookDirectory);
 
