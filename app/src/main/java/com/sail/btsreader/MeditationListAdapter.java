@@ -35,7 +35,7 @@ public class MeditationListAdapter extends RecyclerView.Adapter<MeditationListAd
     public ArrayList<Long> durations = new ArrayList<Long>();
     public String playStatus, newMeditation;
     public String meditationName;
-    int MeditationCount;
+    int meditationCount;
     public ArrayList<BookModel> bookList;
 
 
@@ -45,7 +45,7 @@ public class MeditationListAdapter extends RecyclerView.Adapter<MeditationListAd
         mContext = context;
         meditationDataSet = meditationModelList;
         bookPath = meditationDataSet.get(1).getaBookDir();
-//        meditationCount = meditationDataSet.size();
+        meditationCount = meditationDataSet.size();
     }
 
     @NonNull
@@ -66,15 +66,17 @@ public class MeditationListAdapter extends RecyclerView.Adapter<MeditationListAd
         mMeditationDuration = meditationDataSet.get(i).getaDuration();
         trackNumber = meditationDataSet.get(i).getaFileNumber();
         duration = meditationDataSet.get(i).getaRawDuration();
-        path = meditationDataSet.get(i).getaPath();
+//        path = meditationDataSet.get(i).getaPath();
         meditationName = meditationDataSet.get(i).getaTitle();
-//        bookCover = meditationDataSet.get(i).getaCover();
+        path = "storage/emulated/0/AudioBooks/Meditation/" + meditationName;
+        bookCover = "storage/emulated/0/AudioBooks/Meditation/Meditate.jpg";
 //        alreadyRead = meditationDataSet.get(i).getRead();
 //        possiblyRead = meditationDataSet.get(i).getPossiblyRead();
 //        previousStart = meditationDataSet.get(i).getPreviousStart();
 //        previousLast = meditationDataSet.get(i).getPreviousLast();
 
-//        mMeditationName = mMeditationName.substring(0, mMeditationName.indexOf(".")); // remove file extension
+        mMeditationName = mMeditationName.substring(0, mMeditationName.indexOf(".")); // remove file extension
+        meditationName = meditationName.substring(0, meditationName.indexOf(".")); // remove file extension
 
         meditationViewHolder.mMeditationNameTextView.setText(mMeditationName);
 //        meditationViewHolder.mMeditationDurationTextView.setText(mMeditationDuration);
@@ -125,29 +127,29 @@ public class MeditationListAdapter extends RecyclerView.Adapter<MeditationListAd
         public void onClick(View v) {
 
             int itemPosition = getAbsoluteAdapterPosition();
-
-            startTrack = itemPosition;
-            if (itemPosition < previousStart - 3) {
-                String message = "Long press and reset to desired meditation";
-                Toast toastMessage = Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_LONG);
-                toastMessage.show();
-            } else {
+//
+//            startTrack = itemPosition;
+//            if (itemPosition < previousStart - 3) {
+//                String message = "Long press and reset to desired meditation";
+//                Toast toastMessage = Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_LONG);
+//                toastMessage.show();
+//            } else {
                 playStatus = "Play";
 
                 Intent intent = new Intent(nContext, AudioPlayerActivity.class);
                 intent.putExtra("bookTitle", meditationName);
-                intent.putExtra("bookPath", bookPath);
+                intent.putExtra("bookPath", path);
                 intent.putExtra("position", itemPosition);
                 intent.putStringArrayListExtra("paths", paths);
-                intent.putStringArrayListExtra("meditationName", nameMeditations);
+                intent.putStringArrayListExtra("chapterName", nameMeditations);
                 intent.putExtra("durations", durations);
                 intent.putExtra("playStatus", playStatus);
-//                intent.putExtra("cover", bookCover);
-//                intent.putExtra("previousStart", previousStart);
-//                intent.putExtra("previousLast", previousLast);
-//                intent.putExtra("meditationCount", meditationCount);
+                intent.putExtra("cover", bookCover);
+//                intent.putExtra("previousStart", 0);
+//                intent.putExtra("previousLast", 0);
+                intent.putExtra("meditationCount", meditationCount);
                 nContext.startActivity(intent);
-            }
+//            }
         }
 
         @Override
