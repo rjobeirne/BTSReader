@@ -92,34 +92,34 @@ public class ListBookActivity extends AppCompatActivity {
 
         for (int i = 0; i < books.length; i++) {
             bookDirectory = books[i].getName();
+                if (!bookDirectory.equals("Meditation")) {
 
-                String intPath = path + "/" + bookDirectory;
-                File intDir = new File(intPath);
-                File[] intFiles = intDir.listFiles();
+                    String intPath = path + "/" + bookDirectory;
+                    File intDir = new File(intPath);
+                    File[] intFiles = intDir.listFiles();
 
-                bookTitle = null;
-                author = null;
+                    bookTitle = null;
+                    author = null;
+                    coverPath = null;
 
-                coverPath = null;
-
-                for (int j = 0; j < intFiles.length; j++) {
-                    nameDirectoryFiles = intFiles[j].getName();
-                    if (nameDirectoryFiles.endsWith(".jpg")) {
-                        coverPath = intDir + "/" + nameDirectoryFiles;
-                        break;
+                    for (int j = 0; j < intFiles.length; j++) {
+                        nameDirectoryFiles = intFiles[j].getName();
+                        if (nameDirectoryFiles.endsWith(".jpg")) {
+                            coverPath = intDir + "/" + nameDirectoryFiles;
+                            break;
+                        }
                     }
-                }
 
-                for (int k = 0; k < books.length; k++) {
+                    for (int k = 0; k < books.length; k++) {
 
-                    if (intDir.listFiles().length == 0) {
-                        String emptyDirectory = "Directory " + bookDirectory + " is empty";
-                        customToast(emptyDirectory);
-//                        Toast.makeText(this, emptyDirectory, Toast.LENGTH_LONG).show();
-                        bookTitle = bookDirectory;
-                        break;
-                    } else {
-                    String audFile = intFiles[k].getName();
+                        if (intDir.listFiles().length == 0) {
+                            String emptyDirectory = "Directory " + bookDirectory + " is empty";
+                            customToast(emptyDirectory);
+    //                        Toast.makeText(this, emptyDirectory, Toast.LENGTH_LONG).show();
+                            bookTitle = bookDirectory;
+                            break;
+                        } else {
+                        String audFile = intFiles[k].getName();
                         if (audFile.endsWith(".mp3")) {
                             String filePath = intDir + "/" + audFile;
                             metaRetriever.setDataSource(filePath);
@@ -154,6 +154,7 @@ public class ListBookActivity extends AppCompatActivity {
                     Collections.sort(tempBookList, (obj1, obj2) -> obj1.getaTitle().compareToIgnoreCase(obj2.getaTitle()));
                 }
             }
+        }
 
         return tempBookList;
     }
