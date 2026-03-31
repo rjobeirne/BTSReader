@@ -152,7 +152,9 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
             e.printStackTrace();
         }
 
-        updateProgress.addCurrentBook(files, bookTitle, bookPath, coverPath);
+        if (!coverPath.equals("storage/emulated/0/AudioBooks/Meditation/Meditate.jpg")) {
+            updateProgress.addCurrentBook(files, bookTitle, bookPath, coverPath);
+        }
 
         createPlayList(itemPositionRelative);
         makeCover(coverPath);
