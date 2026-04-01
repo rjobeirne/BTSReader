@@ -24,7 +24,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
     private LayoutInflater mInflater;
     Context mContext;
     public String mBookTitle, mCoverPath, mBookAuthor;
-    public String bookName;
 
     public BookListAdapter(Context context, ArrayList<BookModel> bookModelList) {
 
@@ -93,7 +92,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
 
             String bookName = bookList.get(itemPosition).getaTitle();
             String bookCover = bookList.get(itemPosition).getaCover();
-            String bookAuthor = bookList.get(itemPosition).getaAuthor();
             String bookDirectory = bookList.get(itemPosition).getaPath();
 
             Intent intent = new Intent(nContext, ListChapterActivity.class);
@@ -124,13 +122,10 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
      */
     public BitmapDrawable makeCover(String coverPath) {
 
-//        View mCoverView = mCoverView.findViewById();
         Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(coverPath));
         BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
-//        mCoverView.setBackground(coverBMP);
         return coverBMP;
     }
-
 }
 
 

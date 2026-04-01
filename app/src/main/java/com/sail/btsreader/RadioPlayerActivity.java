@@ -1,22 +1,17 @@
 package com.sail.btsreader;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -236,9 +231,6 @@ public class RadioPlayerActivity extends AppCompatActivity {
            player.pause();
            flagPlaying = false;
            ResetTimer();
-//           if (sleepFunction) {
-//               countDownTimer.cancel();
-//           }
        }
     }
 

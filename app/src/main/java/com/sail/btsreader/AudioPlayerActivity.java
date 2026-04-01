@@ -33,18 +33,13 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
     ArrayList<Long> durations;
     MediaPlayer mediaPlayer;
     SeekBar seekBar;
-    String mTrack, bookTitle, playStatus, bookPath, coverPath;
-    int index, maxIndex;
+    String bookTitle, playStatus, bookPath, coverPath;
+    int index;
     int itemPosition, itemPositionRelative, chapterCount;
-    int currentIndex = 0;
-    ArrayList<String> playList;
-    Timer timer;
     Boolean flagPaused = false;
-    int startTrack;
     public int minTime = 15 * 60 * 1000;
     ArrayList<String> playListPaths;
     private TextView mChapterDuration, mCurrentPosition, mAudioName;
-    View mCoverView;
     long chapterTime, currentPosition, newPosition, remainingTime;
     TextView mBookTitleTextView;
     int previousStart, previousLast, listOffset;
@@ -89,7 +84,6 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
         mediaPlayer.setOnCompletionListener(this);
 
         TextView audioName = findViewById(R.id.audioName);
-//        Button viewAllMediaBtn = findViewById(R.id.viewAllMedia);
         Button skipToPrevious = findViewById(R.id.skip_to_previous);
         Button skipToNext = findViewById(R.id.skip_to_next);
         Button backFivePc = findViewById(R.id.rewind_5pc);
@@ -102,7 +96,7 @@ public class AudioPlayerActivity extends AppCompatActivity implements MediaPlaye
 
         updateProgress = new BookProgress();
 
-        final ToggleButton playBtn = (ToggleButton)findViewById(R.id.playBtn);
+        final ToggleButton playBtn = findViewById(R.id.playBtn);
 
         playBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

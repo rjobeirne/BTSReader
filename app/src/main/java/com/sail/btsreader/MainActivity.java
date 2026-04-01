@@ -22,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     Context nContext;
     String currentBook, bookDirectory;
     String currentCover;
-    private ImageButton settingsBtn;
     AlertDialog alertDialog;
 
     @Override
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         BitmapDrawable coverBMP = new BitmapDrawable(bitmap);
         imageViewCover.setBackground(coverBMP);
 
-        settingsBtn = findViewById(R.id.button_settings);
+        ImageButton settingsBtn = findViewById(R.id.button_settings);
 
         // Settings and preferences
         // Send Toast message on short click

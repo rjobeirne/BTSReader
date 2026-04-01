@@ -25,7 +25,6 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
     Context mContext;
     public String mChapterName, mChapterDuration;
 
-    public  int minTime = 15 * 60 * 1000;
     Integer trackNumber, startTrack, previousStart, previousLast;
     Long duration;
     Boolean alreadyRead, possiblyRead;

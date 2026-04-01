@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class ListBookActivity extends AppCompatActivity {
 
@@ -102,7 +103,7 @@ public class ListBookActivity extends AppCompatActivity {
                     author = null;
                     coverPath = null;
 
-                    for (int j = 0; j < intFiles.length; j++) {
+                    for (int j = 0; j < Objects.requireNonNull(intFiles).length; j++) {
                         nameDirectoryFiles = intFiles[j].getName();
                         if (nameDirectoryFiles.endsWith(".jpg")) {
                             coverPath = intDir + "/" + nameDirectoryFiles;
@@ -112,7 +113,7 @@ public class ListBookActivity extends AppCompatActivity {
 
                     for (int k = 0; k < books.length; k++) {
 
-                        if (intDir.listFiles().length == 0) {
+                        if (Objects.requireNonNull(intDir.listFiles()).length == 0) {
                             String emptyDirectory = "Directory " + bookDirectory + " is empty";
                             customToast(emptyDirectory);
     //                        Toast.makeText(this, emptyDirectory, Toast.LENGTH_LONG).show();
@@ -205,12 +206,10 @@ public class ListBookActivity extends AppCompatActivity {
             default:
                 return super.onContextItemSelected(item);
         }
-
     }
 
     private void displayMessage(String message) {
 
-//        Snackbar.make(findViewById(R.id.libraryView),message,Snackbar.LENGTH_SHORT).show();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -243,31 +242,27 @@ public class ListBookActivity extends AppCompatActivity {
 
         // Delete progress file
         File file = new File(dataFiles, title);
-        boolean deletedProgress = file.delete();
 
        String bookFilesDir = allBookDirectories.get(itemPosition).getaPath();
        File bookPath = new File(Environment.getExternalStorageDirectory().toString() + "/AudioBooks/" + bookFilesDir);
-
-        boolean deletedFiles = deleteDirectory(bookPath);
    }
 
-    static public boolean deleteDirectory(File path) {
+    static public void deleteDirectory(File path) {
 
         if( path.exists() ) {
               File[] files = path.listFiles();
               if (files == null) {
-                  return true;
+                  return;
               }
-              for(int i=0; i<files.length; i++) {
-                 if(files[i].isDirectory()) {
-                   deleteDirectory(files[i]);
-                 }
-                 else {
-                   files[i].delete();
-                 }
-              }
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    file.delete();
+                }
+            }
         }
-        return( path.delete() );
+        path.delete();
     }
     public void confirmDeleteBook(int bookNo) {
         String bookName = tempBookList.get(bookNo).getaTitle();
