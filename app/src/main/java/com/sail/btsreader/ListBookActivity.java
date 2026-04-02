@@ -37,6 +37,7 @@ public class ListBookActivity extends AppCompatActivity {
 
     String bookDirectory, bookTitle;
     File dataFiles;
+    boolean nonBook;
 
     ArrayList<BookModel> allBookDirectories;
     BookProgress updateProgress;
@@ -93,7 +94,12 @@ public class ListBookActivity extends AppCompatActivity {
 
         for (int i = 0; i < books.length; i++) {
             bookDirectory = books[i].getName();
-                if (!bookDirectory.equals("Meditation")) {
+            if (bookDirectory.equals("Meditation") || bookDirectory.equals("Music")) {
+                nonBook = true;
+            } else {
+                nonBook = false;
+            }
+                if (!nonBook) {
 
                     String intPath = path + "/" + bookDirectory;
                     File intDir = new File(intPath);
